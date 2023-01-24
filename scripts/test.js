@@ -48,6 +48,7 @@ function setNowInfo(response) {
 }
 
 const getInfo = async (day, from) => {
+    console.log(day + " from calendar ")
     try {
         day.setHours(0,0,0,0)
         const responsesJSON = await Promise.all([
@@ -61,7 +62,7 @@ const getInfo = async (day, from) => {
         // document.getElementById("load").hidden = true
         if (from === "now") {
             console.log("NOW")
-            setDate(new Date())
+            setDate(day)
             setStatusImage(lastInfo['status'], "now")
             setNowInfo(lastInfo)
             setList(listByDay)
@@ -70,15 +71,26 @@ const getInfo = async (day, from) => {
             document.getElementById("dur_timer").hidden = false
         } else {
 
-            const now_short = new Date().toISOString().slice(0, 10);
+            const now_short = new Date();
+             now_short.toDateString()
+             day.toDateString()
+
+            console.log(now_short + " NOW SHORT")
+            console.log(day + " DAY INFO SHORT")
             setTimeNoTotal(listByDay, lastInfo)
-            if (lastInfo['selectedDate'] === now_short) {
+            // if (lastInfo['selectedDate'] === now_short) {
+            // if (day === now_short) {
+            if (day.toDateString() === now_short.toDateString()) {
+                console.log("TODAY")
+                console.log(new Date())
                 setDate(lastInfo['selectedDate'])
                 setList(listByDay)
                 document.getElementById("on_off_status_txt").hidden = false
                 document.getElementById("dur_timer").hidden = false
                 setStatusImage(lastInfo['status'], "now")
             } else {
+                console.log("NO TODAY")
+                console.log(new Date())
                 setDate(lastInfo['selectedDate'])
                 setList(listByDay)
                 setStatusImage(lastInfo['status'], "history")
