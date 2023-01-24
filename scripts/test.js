@@ -49,7 +49,7 @@ function setNowInfo(response) {
 
 const getInfo = async (day, from) => {
     try {
-
+        day.setHours(0,0,0,0)
         const responsesJSON = await Promise.all([
             fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day),
             fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day,)
@@ -60,12 +60,14 @@ const getInfo = async (day, from) => {
         hideLoadAnimation()
         // document.getElementById("load").hidden = true
         if (from === "now") {
-
+            console.log("NOW")
             setDate(new Date())
             setStatusImage(lastInfo['status'], "now")
             setNowInfo(lastInfo)
             setList(listByDay)
             setTimeNoTotal(listByDay, lastInfo)
+            document.getElementById("on_off_status_txt").hidden = false
+            document.getElementById("dur_timer").hidden = false
         } else {
 
             const now_short = new Date().toISOString().slice(0, 10);
@@ -191,6 +193,7 @@ function setList(list) {
     for (let i = 0; i < list.length; i++) {
         listsItems.append(createLisItem(list[i]))
     }
+    console.log(list);
 }
 
 function createLisItem(listItem) {
@@ -266,7 +269,7 @@ function calendarDateToNormalDate(dateString){
     const options_now = { year: 'numeric', month: 'long', day: 'numeric' }
     var newCorrectData = new Date(Date.parse(dateArray[0] + " " + month + " " + dateArray[2]))
     console.log(newCorrectData.toLocaleDateString(undefined, options_now))
-
+    console.log(newCorrectData + "Corect")
     return newCorrectData
 }
 
