@@ -147,6 +147,7 @@ h3{
 .text_message_wrapper{
     background-color: #192441;
     width: 100%;
+    height: 40px;
     border-radius: 10px ;
     display: flex;
     justify-content: space-evenly;
