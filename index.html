@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<script src="./scripts/test.js"></script>
+<script>
+    getInfo(new Date(), "now")
+</script>
+<div class="load" id="load">
+    <lottie-player class="" id="loadAnim" preload="none"
+                   src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
+                   speed="1" loop autoplay></lottie-player>
+</div>
+<div class="container" id="container">
+
+
+    <div class="middle"  id="middle" >
+        <div class="left-middle">
+        </div>
+
+        <div class="current">
+            <lottie-player class="power_id" id="power_id" preload="none"
+                           src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
+                           speed="1" loop autoplay></lottie-player>
+            <div id="datepicker-container">
+                <h1 class="today_date" id="today_date">
+                    <input class="datepicker" type="text" id="datepicker" readonly onchange="dateSelect(event);"></h1>
+            </div>
+
+            <h2 id="time-now"></h2>
+            <h3 id="on_off_status_txt"></h3>
+            <h3 id="dur_timer"></h3>
+        </div>
+        <div class="summary">
+
+            <a class="image-button"
+               title="Icons8, MIT &lt;http://opensource.org/licenses/mit-license.php&gt;, via Wikimedia Commons"><img
+                    width="32" alt="Icons8 flat calendar"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Icons8_flat_calendar.svg/64px-Icons8_flat_calendar.svg.png"
+                    onClick="show_dp();"></a>
+            <!--            <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');">18ч 23м</h3>-->
+            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
+        </div>
+
+    </div>
+
+    <div class="bottom" id="listview">
+
+        <!--        <div class="message">-->
+        <!--            <img class="img" src="./img/on.svg">-->
+        <!--            <div class="text_message_wrapper">-->
+        <!--                <div class="from"> C 12-00</div>-->
+        <!--                <div class="to">ДО 23-00</div>-->
+        <!--                <div class="total_message">2ч 38М</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+    </div>
+</div>
+</body>
+</html>
