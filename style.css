@@ -9,7 +9,7 @@ body{
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
     max-width: 700px;
-    width: 85vw;
+    width: 90vw;
     margin: 0 auto;
     height: 100vh;
 
@@ -142,7 +142,7 @@ h3{
 }
 
 .img{
-    height: 40px;
+    height: 30px;
 }
 .text_message_wrapper{
     background-color: #192441;
@@ -177,6 +177,7 @@ h3{
         /*background-color: #D24D4D;*/
         /*width: 100%;*/
         height: 90%;
+        padding-top: 0px;
     }
 
     .image-button {
@@ -208,15 +209,15 @@ h3{
     }
 
     h2{
-        font-size: 34px;
+        font-size: 25px;
     }
     h3{
-        font-size: 24px ;
+        font-size: 17px ;
     }
 
     img{
-        width: 60px;
-        height: 60px;
+        width: 30px;
+        height: 30px;
     }
     .bottom {
 
@@ -225,12 +226,25 @@ h3{
         /*height: 50%;*/
     }
     .message{
-        height: 60px;
-        font-size: 20px;
+        height: 45px;
+
+        font-size: 16px;
         align-items: center;
         text-align: center;
         margin:  0 auto;
     }
+
+    #ui-datepicker-div{
+        font-size:16px;
+        position: absolute !important;
+        left: 50% !important;
+        top: 35% !important;
+        -webkit-transform: translate(-50%, 0) !important;
+
+        background-color: #d0ac62;
+
+    }
+
 
 
 
