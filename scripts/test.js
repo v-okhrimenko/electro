@@ -121,6 +121,7 @@ function showLoadAnimation() {
 function setTimeNoTotal(list, lastInfo) {
 
     let no = []
+    let yes = []
     if (list.length === 0) {
         document.getElementById("absend-id").hidden = true
 
@@ -131,16 +132,13 @@ function setTimeNoTotal(list, lastInfo) {
                 no.push(list[i]['duration'].replace(/[^0-9,\s]/g, " ").replace("  ", ":").replace("   ", ":").split(":"))
 
             }
+            else {
+                yes.push(list[i]['duration'].replace(/[^0-9,\s]/g, " ").replace("  ", ":").replace("   ", ":").split(":"))
+            }
         }
-        let sec = 0;
-        let min = 0;
-        let hours = 0;
-        for (let i = 0; i < no.length; i++) {
-            hours = hours + parseInt(no[i][0])
-            min = min + parseInt(no[i][1])
-            sec = sec + parseInt(no[i][2])
-        }
-        let hmt = parseHMSToNormalTime(hours, min, sec)
+
+        let noArr = getHMS(no)
+        let yesArr = getHMS(yes)
 
         // if(lastInfo['status'] === true) {
         //
@@ -171,9 +169,26 @@ function setTimeNoTotal(list, lastInfo) {
         //
         //     //document.getElementById("absend-id").innerHTML = setZero(hmt[0]) + "г " + setZero(hmt[1]) + "xв " + setZero(hmt[2]) + "c"
         // }
-        document.getElementById("absend-id").innerHTML = setZero(hmt[0]) + "г " + setZero(hmt[1]) + "xв "
+        document.getElementById("absend-id").innerHTML = setZero(noArr[0]) + "г " + setZero(noArr[1]) + "xв "
         document.getElementById("absend-id").hidden = false
+
+        document.getElementById("was-id").innerHTML = setZero(yesArr[0]) + "г " + setZero(yesArr[1]) + "xв "
+        document.getElementById("was-id").hidden = false
     }
+}
+
+function getHMS(arr) {
+
+    let sec = 0;
+    let min = 0;
+    let hours = 0;
+    for (let i = 0; i < arr.length; i++) {
+        hours = hours + parseInt(arr[i][0])
+        min = min + parseInt(arr[i][1])
+        sec = sec + parseInt(arr[i][2])
+    }
+    return  hmt = parseHMSToNormalTime(hours, min, sec)
+
 }
 
 function setZero(digit) {
@@ -214,18 +229,23 @@ function createLisItem(listItem) {
     const end = listItem['end']
     const total = listItem['duration']
 
+    let color_const;
     let pth = "";
     if (status === false) {
         pth = "https://i.ibb.co/4pksKzy/poweroff.png";
+        color_const = 'rgba(210, 77, 77, 0.65)';
+
     }
     if (status === true) {
         pth = "https://i.ibb.co/XJ8Mszx/poweron.png";
+        color_const = 'rgba(63, 209, 60, 0.48)';
     }
     const fromtxt = " з " + start;
     var totxt = " до " + end
     const dur = " тривалість: " + total;
     // console.log(dur)
-    return '<div class="message"><img class="img" src=' + '"' + pth + '"' + '><div class="text_message_wrapper"><div class="from" id="fromtxt">' + fromtxt + '</div><div class="to" id="totxt">' + totxt + '</div><div class="total_message" id="dur">' + dur + '</div></div></div>'
+    return '<div class="message"><img class="img" src=' + '"' + pth + '"' + '><div class="text_message_wrapper" id="text_message_wrapper" style="background-color:' + color_const + ';"><div class="from" id="fromtxt">' + fromtxt + '</div><div class="to" id="totxt">' + totxt + '</div><div class="total_message" id="dur">' + dur + '</div></div></div>'
+    // return '<div class="message"><img class="img" src=' + '"' + pth + '"' + '><div class="text_message_wrapper" id="text_message_wrapper" style="background-color:color_const;"><div class="from" id="fromtxt">' + fromtxt + '</div><div class="to" id="totxt">' + totxt + '</div><div class="total_message" id="dur">' + dur + '</div></div></div>'
 }
 
 jQuery(function ($) {
@@ -296,11 +316,11 @@ function showAlert(e) {
     var url = document.getElementById(e).innerText;
     var text = ""
     if(e==="absend-id") {
-        text = "Загалом за добу електрика була відсутня  "+url
+        text = "Загалом за добу електрика відсутня  "+url
     }
-    // if(e === "was-id") {
-    //     text = "Всего за весь день электричество было "+url
-    // }
+    if(e === "was-id") {
+        text = "Загалом за добу електрика є  "+url
+    }
 
     alert(text);
 }
