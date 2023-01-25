@@ -55,6 +55,7 @@ const getInfo = async (day, from) => {
             fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day),
             fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day,)
         ]);
+        getGrafInfo(new Date)
         const [lastInfo, listByDay] = await Promise.all(responsesJSON.map(r => r.json()));
         // console.log(lastInfo, 'lastInfo');
         // console.log(listByDay, 'listByDay');
@@ -327,3 +328,59 @@ function showAlert(e) {
     alert(text);
 }
 
+function show_graf(){
+    document.getElementById("graph_conteiner-back").style = 'display: block;';
+    //getGrafInfo(new Date())
+}
+
+function close_graf(){
+    document.getElementById("graph_conteiner-back").style = 'display: none;';
+
+}
+
+const getGrafInfo = async (date) => {
+    var year = date.getFullYear();
+    var month = date.getMonth();
+
+    console.log(month)
+    try {
+
+        const responsesJSON = await Promise.all([
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_'+year+'*'+month),
+
+        ]);
+        const [dateForGraf] = await Promise.all(responsesJSON.map(r => r.json()));
+        console.log(dateForGraf)
+        setChartData(dateForGraf)
+
+
+    } catch (err) {
+        throw err;
+    }
+};
+
+
+function setChartData(x) {
+    const ctx = document.getElementById('myChart');
+    let outterChart;
+
+    //console.log("click "+x )
+    if (outterChart) {
+        outterChart.data = getGrafInfo(x);
+    } else {
+        outterChart = new Chart(ctx, {
+                type: 'line',
+                data: x,
+                options: {
+                    pointBackgroundColor: 'rgb(229,14,92)',
+                    // pointHitRadius: '1',
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        )
+    }
+}
