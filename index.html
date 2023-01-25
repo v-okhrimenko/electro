@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,24 +11,57 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Electro</title>
 </head>
 <body>
+<div class="graph_conteiner-back" id ="graph_conteiner-back" >
+    <div class="graph_conteiner" id="graph_conteiner">
+<!--        <button class="btn_close" id = "btn_close" onClick="close_graf();" >ЗАКРИТИ</button>-->
+        <div class="button_close_conteiner_line">
+            <div class="button_close_conteiner">
+                <img class="img-close" src="img/close.svg" alt="" onClick="close_graf();">
+            </div>
+        </div>
+        
+        <h2 class="graph_title">Графік наявності та відсутності єлектрики</h2>
+<!--        <div class="graph_picker_conteiner">-->
+<!--            <select name="year_select" id="year_select">-->
+<!--            <option value="1">2023</option>-->
+<!--            <option value="2">2024</option>-->
+<!--        </select>-->
+<!--            <select name="month_select" id="month_select">-->
+<!--                <option value="1">Январь</option>-->
+<!--                <option value="2">Февраль</option>-->
+<!--                <option value="3">Март</option>-->
+<!--                <option value="4">Апрель</option>-->
 
+<!--            </select></div>-->
+
+        <canvas class="canvas" id="myChart"></canvas>
+<!--        <script>getGrafInfo(new Date())</script>-->
+
+    </div>
+</div>
 <script src="./scripts/test.js"></script>
 <script>
     getInfo(new Date(), "now")
 </script>
+
 <div class="load" id="load">
     <lottie-player class="" id="loadAnim" preload="none"
                    src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
                    speed="1" loop autoplay></lottie-player>
 </div>
+
 <div class="container" id="container">
+
 
 
     <div class="middle"  id="middle" >
         <div class="left-middle">
+            <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
+            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
         </div>
 
         <div class="current">
@@ -48,11 +81,16 @@
 
             <a class="image-button"
                title="Icons8, MIT &lt;http://opensource.org/licenses/mit-license.php&gt;, via Wikimedia Commons"><img
-                    width="32" alt="Icons8 flat calendar"
+                    width="50" alt="Icons8 flat calendar"
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Icons8_flat_calendar.svg/64px-Icons8_flat_calendar.svg.png"
                     onClick="show_dp();"></a>
-                        <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
-            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
+
+
+
+                <div class="button_close_conteiner">
+                    <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
+                </div>
+
         </div>
 
     </div>
