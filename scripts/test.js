@@ -124,6 +124,7 @@ function setTimeNoTotal(list, lastInfo) {
     let yes = []
     if (list.length === 0) {
         document.getElementById("absend-id").hidden = true
+        document.getElementById("was-id").hidden = true
 
     } else {
 
@@ -174,6 +175,7 @@ function setTimeNoTotal(list, lastInfo) {
 
         document.getElementById("was-id").innerHTML = setZero(yesArr[0]) + "г " + setZero(yesArr[1]) + "xв "
         document.getElementById("was-id").hidden = false
+        //
     }
 }
 
