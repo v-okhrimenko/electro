@@ -18,13 +18,17 @@ function setDate(date) {
 
 }
 
+const interIdsNow = [];
 function setNowInfo(response, list) {
+    if (interIdsNow.length > 0) {
+        clearInterval(interIdsNow[0]);
+    }
     const time = new Date(response['time']).toLocaleTimeString()
     const status = response['status']
     var lastEventDate = ""
-    if(list.length === 0) {
+    if (list.length === 0) {
 
-        lastEventDate =  '<br>'+ "(" + new Date(response['time']).toLocaleDateString('uk-UA') + ")"
+        lastEventDate = '<br>' + "(" + new Date(response['time']).toLocaleDateString('uk-UA') + ")"
     }
 
     if (status === false) {
@@ -53,12 +57,15 @@ function setNowInfo(response, list) {
             document.getElementById("dur_timer").innerHTML = "EXPIRED";
         }
     }, 1000);
+    interIdsNow.push(x)
+
 }
 
 const getInfo = async (day, from) => {
+
     console.log(day + " from calendar ")
     try {
-        day.setHours(0,0,0,0)
+        day.setHours(0, 0, 0, 0)
         const responsesJSON = await Promise.all([
             fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day),
             fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day,)
@@ -75,25 +82,27 @@ const getInfo = async (day, from) => {
             setStatusImage(lastInfo['status'], "now")
             setNowInfo(lastInfo, listByDay)
             setList(listByDay)
-            setTimeNoTotal(listByDay, lastInfo)
+            setTimeNoTotal(listByDay, lastInfo, "now")
             document.getElementById("on_off_status_txt").hidden = false
             document.getElementById("dur_timer").hidden = false
         } else {
 
             const now_short = new Date();
-             now_short.toDateString()
-             day.toDateString()
+            now_short.toDateString()
+            day.toDateString()
 
             console.log(now_short + " NOW SHORT")
             console.log(day + " DAY INFO SHORT")
-            setTimeNoTotal(listByDay, lastInfo)
+            setTimeNoTotal(listByDay, lastInfo, "not now")
             // if (lastInfo['selectedDate'] === now_short) {
             // if (day === now_short) {
             if (day.toDateString() === now_short.toDateString()) {
                 console.log("TODAY")
+
                 console.log(new Date())
                 setDate(lastInfo['selectedDate'])
                 setList(listByDay)
+                setTimeNoTotal(listByDay, lastInfo, "now")
                 document.getElementById("on_off_status_txt").hidden = false
                 document.getElementById("dur_timer").hidden = false
                 setStatusImage(lastInfo['status'], "now")
@@ -115,7 +124,7 @@ const getInfo = async (day, from) => {
     }
 };
 
-function hideLoadAnimation(){
+function hideLoadAnimation() {
 
 
     document.getElementById("container").style = 'display: flex;';
@@ -127,7 +136,13 @@ function showLoadAnimation() {
     document.getElementById("load").hidden = false
 }
 
-function setTimeNoTotal(list, lastInfo) {
+const interIds = [];
+
+function setTimeNoTotal(list, lastInfo, from) {
+
+    if (interIds.length > 0) {
+        clearInterval(interIds[0]);
+    }
 
     let no = []
     let yes = []
@@ -141,8 +156,7 @@ function setTimeNoTotal(list, lastInfo) {
             if (list[i]['status'] === false) {
                 no.push(list[i]['duration'].replace(/[^0-9,\s]/g, " ").replace("  ", ":").replace("   ", ":").split(":"))
 
-            }
-            else {
+            } else {
                 yes.push(list[i]['duration'].replace(/[^0-9,\s]/g, " ").replace("  ", ":").replace("   ", ":").split(":"))
             }
         }
@@ -150,35 +164,41 @@ function setTimeNoTotal(list, lastInfo) {
         let noArr = getHMS(no)
         let yesArr = getHMS(yes)
 
-        // if(lastInfo['status'] === true) {
-        //
-        //     var secT = hmt[2];
-        //     var minT = hmt[1];
-        //     var hrsT = hmt[0];
-        //     const x = setInterval(function () {
-        //         console.log("tick")
-        //
-        //         secT++;
-        //         if (secT >= 60) {
-        //             secT = 0;
-        //             minT++;
-        //             if (minT >= 60) {
-        //                 minT = 0;
-        //                 hrsT++;
-        //             }
-        //         }
-        //         document.getElementById("absend-id").innerHTML = setZero(hrsT) + "г " + setZero(minT) + "хв " + setZero(secT) + "с "
-        //         // if (distance < 0) {
-        //         //     clearInterval(x);
-        //         //     document.getElementById("absend-id").innerHTML = "EXPIRED";
-        //         // }
-        //     }, 1000);
-        //
-        // }
-        // else {
-        //
-        //     //document.getElementById("absend-id").innerHTML = setZero(hmt[0]) + "г " + setZero(hmt[1]) + "xв " + setZero(hmt[2]) + "c"
-        // }
+        var html_
+        var arr
+        if (lastInfo['status'] === true) {
+
+            html_ = document.getElementById("was-id")
+            arr = yesArr
+        } else {
+            html_ = document.getElementById("absend-id")
+            arr = noArr
+        }
+
+        console.log(from)
+        if (from === "now") {
+
+            var ms = arr[2] * 1000 + arr[1] * 60000 + arr[0] * 3.6e+6
+
+            const intervalId = setInterval(function () {
+                const now = new Date().getTime();
+                const countDownDate = new Date(lastInfo['time']).getTime();
+                let distance = now - countDownDate;
+
+                distance = distance + ms
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                html_.innerText = setZero(hours) + "г " + setZero(minutes) + "xв "
+                //console.log(days + " " + hours + " " + minutes + " " + seconds)
+
+            }, 1000);
+            interIds.push(intervalId)
+
+        }
+
         document.getElementById("absend-id").innerHTML = setZero(noArr[0]) + "г " + setZero(noArr[1]) + "xв "
         document.getElementById("absend-id").hidden = false
 
@@ -188,8 +208,8 @@ function setTimeNoTotal(list, lastInfo) {
     }
 }
 
-function getHMS(arr) {
 
+function getHMS(arr) {
     let sec = 0;
     let min = 0;
     let hours = 0;
@@ -198,7 +218,7 @@ function getHMS(arr) {
         min = min + parseInt(arr[i][1])
         sec = sec + parseInt(arr[i][2])
     }
-    return  hmt = parseHMSToNormalTime(hours, min, sec)
+    return hmt = parseHMSToNormalTime(hours, min, sec)
 
 }
 
@@ -306,12 +326,12 @@ function dateSelect(e) {
     getInfo(new Date(nor), "history")
 }
 
-function calendarDateToNormalDate(dateString){
+function calendarDateToNormalDate(dateString) {
 
     var dateArray = dateString.split(' ');
     var month = getMonth(dateArray[1])
 
-    const options_now = { year: 'numeric', month: 'long', day: 'numeric' }
+    const options_now = {year: 'numeric', month: 'long', day: 'numeric'}
     var newCorrectData = new Date(Date.parse(dateArray[0] + " " + month + " " + dateArray[2]))
     console.log(newCorrectData.toLocaleDateString(undefined, options_now))
     console.log(newCorrectData + "Corect")
@@ -321,29 +341,30 @@ function calendarDateToNormalDate(dateString){
 function getMonth(monthFull) {
     let monthNamesLong = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
         'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
-    let  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    let monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return monthNames[monthNamesLong.indexOf(monthFull)]
 }
+
 function showAlert(e) {
     var url = document.getElementById(e).innerText;
     var text = ""
-    if(e==="absend-id") {
-        text = "Загалом за добу eлeктроенергія відсутня  "+url
+    if (e === "absend-id") {
+        text = "Загалом за добу eлeктроенергія відсутня  " + url
     }
-    if(e === "was-id") {
-        text = "Загалом за добу eлeктроенергія є  "+url
+    if (e === "was-id") {
+        text = "Загалом за добу eлeктроенергія є  " + url
     }
 
     alert(text);
 }
 
-function show_graf(){
+function show_graf() {
     document.getElementById("graph_conteiner-back").style = 'display: block;';
     //getGrafInfo(new Date())
 }
 
-function close_graf(){
+function close_graf() {
     document.getElementById("graph_conteiner-back").style = 'display: none;';
 
 }
@@ -356,7 +377,7 @@ const getGrafInfo = async (date) => {
     try {
 
         const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_'+year+'*'+month),
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_' + year + '*' + month),
 
         ]);
         const [dateForGraf] = await Promise.all(responsesJSON.map(r => r.json()));

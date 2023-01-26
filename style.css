@@ -45,6 +45,7 @@ body{
     background-color: #091534;
     padding-top: 20px;
 }
+
 .button_close_conteiner_line{
     display: flex;
     justify-content: end;
@@ -57,6 +58,7 @@ body{
     border-radius: 35px;
     width: 40px;
     height: 40px;
+    margin-bottom: 10px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -103,6 +105,7 @@ body{
     justify-content: flex-start;
     margin: 0 auto;
 }
+
 .load{
     /*position: absolute;*/
     position: fixed;
@@ -121,35 +124,34 @@ body{
 }
 
 .left-middle{
-    width: 20%;
+    width: 10%;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: start;
+    align-items: center;
     /*align-items: center;*/
 }
 
-.was-total-text,.absend-total-text {
-    border-radius: 50px;
-    height: 40px;
-    width: 40px;
-    margin: 10px 0;
-    padding: 5px;
-    font-size: 16px;
-}
-
-.was-total-text{
-    background-color: #3FD13C;
-}
-.absend-total-text{
-    background-color: #D24D4D;
-
+.summary{
+    width: 10%;
+    text-align: center;
+    /*margin-bottom: 10px;*/
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
 .current{
-    width: 60%;
+    width: 80%;
+
     margin: 0 auto;
     text-align: center;
+    /*background-color: lime;*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
     /*transition: all 1s ease;*/
 
 }
@@ -179,16 +181,32 @@ h2,h3{
     cursor: pointer;
 }
 
-.absend-total-text{
+.was-total-text,.absend-total-text {
+    border-radius: 50px;
+    height: 40px;
+    width: 40px;
+    /*margin: 10px 0;*/
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
     cursor: pointer;
     -moz-user-select: none;
     user-select: none;
+}
+
+.was-total-text{
+    background-color: #3FD13C;
+}
+.absend-total-text{
+    background-color: #D24D4D;
 
 }
 
-.absend-total-text:hover{
+.absend-total-text:hover, .was-total-text:hover{
     opacity: 80%;
 }
+
+
 h2{
     font-size: 20px;
     font-weight: 700;
@@ -198,22 +216,23 @@ h3{
     font-size: 14px;
 }
 
-.summary{
-    text-align: center;
-    margin-bottom: 10px;
-    margin-top: 20px;
-}
+
 
 .bottom{
     /*transition: all 2s linear;*/
-    visibility: inherit;
-    height: 40%;
+    /*visibility: inherit;*/
+    /*height: 40%;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     /*background: #D24D4D;*/
+    height: 50%;
 }
 
 .message{
     width: 100%;
-    height: 40px;
+    height: 10%;
+    /*height: 40px;*/
     display: flex;
     flex-direction: row;
     margin-top: 10px;
@@ -238,14 +257,6 @@ h3{
     opacity: 0%;
 }
 
-
-@media (orientation: landscape) {
-    .bottom{
-        margin-top: 10px;
-    }
-
-}
-
 /* Portrait*/
 @media only screen and (orientation: portrait)  {
 
@@ -266,6 +277,7 @@ h3{
 
 
     }
+
     body{
         /*max-width: 800px;*/
         /*width: 90vw;*/
@@ -290,9 +302,18 @@ h3{
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        padding-bottom: 80px;
+        /*padding-bottom: 80px;*/
 
         /*align-items: center;*/
+    }
+
+    .left-middle{
+        width: 20%;
+    }
+
+    .current{
+        width: 80%;
+        flex-direction: column;
     }
 
     .was-total-text{
@@ -300,6 +321,7 @@ h3{
         width: 50px;
         height: 50px;
     }
+
     .absend-total-text{
         font-size: 20px;
         width: 50px;
@@ -309,9 +331,11 @@ h3{
     h2{
         font-size: 25px;
     }
+
     h3{
         font-size: 17px ;
     }
+
     .graph_title{
         font-size: 20px;
         padding: 20px;
@@ -328,18 +352,18 @@ h3{
         margin-bottom: 10px;
     }
     .bottom {
-
+        height: 40%;
         margin-top: 50px;
+
         /*background-color: #3FD13C;*/
         /*height: 50%;*/
     }
     .message{
         height: 45px;
-
         font-size: 16px;
         align-items: center;
         text-align: center;
-        margin:  0 auto;
+        margin:  0 auto 5px 0;
     }
 
     #ui-datepicker-div{
@@ -352,6 +376,7 @@ h3{
         background-color: #d0ac62;
 
     }
+
     .text_message_wrapper{
         background-color: #192441;
         width: 100%;
@@ -361,10 +386,4 @@ h3{
         justify-content: space-evenly;
         align-items: center;
     }
-
-
-
-
-
-
 }
