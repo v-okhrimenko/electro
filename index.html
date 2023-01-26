@@ -16,32 +16,47 @@
 </head>
 <body>
 <div class="graph_conteiner-back" id ="graph_conteiner-back" >
-    <div class="graph_conteiner" id="graph_conteiner">
-<!--        <button class="btn_close" id = "btn_close" onClick="close_graf();" >ЗАКРИТИ</button>-->
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Year')">Рік</button>
+        <button class="tablinks" onclick="openCity(event, 'Month')" id="defaultOpen">Місяць</button>
+        <button class="tablinks" onclick="openCity(event, 'All')">Загалом</button>
         <div class="button_close_conteiner_line">
-            <div class="button_close_conteiner">
+            <div class="button_close_conteiner" id ="button_close_tabs">
                 <img class="img-close" src="img/close.svg" alt="" onClick="close_graf();">
             </div>
         </div>
-        
-        <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії</h2>
-<!--        <div class="graph_picker_conteiner">-->
-<!--            <select name="year_select" id="year_select">-->
-<!--            <option value="1">2023</option>-->
-<!--            <option value="2">2024</option>-->
-<!--        </select>-->
-<!--            <select name="month_select" id="month_select">-->
-<!--                <option value="1">Январь</option>-->
-<!--                <option value="2">Февраль</option>-->
-<!--                <option value="3">Март</option>-->
-<!--                <option value="4">Апрель</option>-->
+    </div>
 
-<!--            </select></div>-->
-
-        <canvas class="canvas" id="myChart"></canvas>
-<!--        <script>getGrafInfo(new Date())</script>-->
+    <!-- Tab content -->
+    <div id="Year" class="tabcontent">
+        <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за рік</h2>
 
     </div>
+
+    <div id="Month" class="tabcontent">
+        <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за місяць</h2>
+                <div class="graph_picker_conteiner">
+                    <select name="year_select" id="year_select">
+                    <option value="1">2023</option>
+                    <option value="2">2024</option>
+                </select>
+                    <select name="month_select" id="month_select">
+                        <option value="1">Январь</option>
+                        <option value="2">Февраль</option>
+                        <option value="3">Март</option>
+                        <option value="4">Апрель</option>
+
+                    </select></div>
+
+        <canvas class="canvas" id="myChart"></canvas>
+    </div>
+
+    <div id="All" class="tabcontent">
+        <h2 class="graph_title">Загальна інформація за весь час</h2>
+
+    </div>
+
 </div>
 <script src="./scripts/test.js"></script>
 <script>
@@ -78,11 +93,6 @@
             <h3 id="dur_timer"></h3>
         </div>
         <div class="summary">
-
-<!--            <a class="image-button"-->
-<!--                    src="img/calendar-01.svg"-->
-<!--                    onClick="show_dp();"></a>-->
-
             <div class="button_close_conteiner">
                 <img class="img-close"  src="img/calendar-01.svg" alt="" onClick="show_dp();">
             </div>
