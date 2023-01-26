@@ -69,7 +69,7 @@ body{
 }
 
 .img-close{
-    width: 50%; height: auto;
+    width: 60%; height: auto;
     /*background-color: #3FD13C;*/
 }
 
@@ -320,6 +320,12 @@ h3{
     img{
         width: 30px;
         height: 30px;
+    }
+
+    .button_close_conteiner{
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
     }
     .bottom {
 

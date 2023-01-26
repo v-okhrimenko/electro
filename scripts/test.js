@@ -18,14 +18,22 @@ function setDate(date) {
 
 }
 
-function setNowInfo(response) {
+function setNowInfo(response, list) {
     const time = new Date(response['time']).toLocaleTimeString()
     const status = response['status']
+    var lastEventDate = ""
+    if(list.length === 0) {
+
+        lastEventDate =  '<br>'+ "(" + new Date(response['time']).toLocaleDateString('uk-UA') + ")"
+    }
+
     if (status === false) {
-        document.getElementById("on_off_status_txt").innerHTML = "Виключили в:  " + time;
+        // console.log("LIST: true" + list.length)
+        document.getElementById("on_off_status_txt").innerHTML = "Виключили в:  " + time + " " + lastEventDate;
     }
     if (status === true) {
-        document.getElementById("on_off_status_txt").innerHTML = "Включили в:  " + time;
+        // console.log("LIST: false" + list.length)
+        document.getElementById("on_off_status_txt").innerHTML = "Включили в:  " + time + " " + lastEventDate;
     }
 
     const x = setInterval(function () {
@@ -65,7 +73,7 @@ const getInfo = async (day, from) => {
             console.log("NOW")
             setDate(day)
             setStatusImage(lastInfo['status'], "now")
-            setNowInfo(lastInfo)
+            setNowInfo(lastInfo, listByDay)
             setList(listByDay)
             setTimeNoTotal(listByDay, lastInfo)
             document.getElementById("on_off_status_txt").hidden = false
@@ -286,10 +294,12 @@ $(function () {
     });
 
 });
+
 function show_dp() {
     //  document.getElementById("datepicker").setAttribute('type',"text")
     $('#datepicker').datepicker('show'); //Show on click of button
 }
+
 function dateSelect(e) {
     const nor = calendarDateToNormalDate(e.target.value)
     showLoadAnimation()
@@ -319,10 +329,10 @@ function showAlert(e) {
     var url = document.getElementById(e).innerText;
     var text = ""
     if(e==="absend-id") {
-        text = "Загалом за добу електрика відсутня  "+url
+        text = "Загалом за добу eлeктроенергія відсутня  "+url
     }
     if(e === "was-id") {
-        text = "Загалом за добу електрика є  "+url
+        text = "Загалом за добу eлeктроенергія є  "+url
     }
 
     alert(text);
@@ -358,7 +368,6 @@ const getGrafInfo = async (date) => {
         throw err;
     }
 };
-
 
 function setChartData(x) {
     const ctx = document.getElementById('myChart');
