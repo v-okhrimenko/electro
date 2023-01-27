@@ -377,7 +377,8 @@ const getGrafInfo = async (date) => {
     // month_years = []
     var year = date.getFullYear();
     var month = date.getMonth();
-
+    // showLoadAnimation()
+    document.getElementById("load_intab").style = 'display: block;';
     console.log(year)
     console.log(month)
     try {
@@ -480,6 +481,7 @@ function searchGRAF(){
 
     getGrafInfo(new Date(year, month))
     console.log( year + " " + month)
+    document.getElementById("myChart").style = 'display: none;';
 }
 
 function getMonthUKR(index) {
@@ -490,6 +492,10 @@ function getMonthUKR(index) {
 
 
 function setChartData(x) {
+    document.getElementById("load_intab").style = 'display: none;';
+    document.getElementById("tab_visible").style = 'display: block;';
+    document.getElementById("myChart").style = 'display: block;';
+
     const ctx = document.getElementById('myChart');
     //let outterChart;
 

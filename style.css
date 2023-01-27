@@ -117,7 +117,7 @@ body{
 
 #year_select, #month_select{
     font-size: 16px;
-    height: 50px;
+    /*height: 50px;*/
     /*color: #cccccc;*/
     /*background-color: #091534;*/
     /*border: none;*/
@@ -176,7 +176,31 @@ body{
     z-index: 2;
 
 }
+/*.load_in_tab{*/
+/*    height: 90%;*/
+/*    width: 90%;*/
+/*    background-color: #3FD13C;*/
+/*}*/
 
+.load_intab{
+    /*display: block;*/
+    /*position: absolute;*/
+    /*background-color: #3FD13C;*/
+    /*height: 50vw;*/
+    /*width: 90%;*/
+    /*font-size:20px;*/
+    position: absolute !important;
+    left: 55% !important;
+    top: 35% !important;
+    -webkit-transform: translate(-50%, 0) !important;
+}
+.tab_visible{
+    display: none;
+}
+
+.myChart{
+    display: none;
+}
 .middle{
     display: flex;
     /*display: flex;*/

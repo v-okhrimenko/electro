@@ -36,27 +36,36 @@
     </div>
 
     <div id="Month" class="tabcontent">
-        <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за місяць</h2>
-                <div class="graph_picker_conteiner">
-                    <select name="year_select" id="year_select" onchange="yearChange();">
-<!--                    <option value="1">2023</option>-->
-<!--                    <option value="2">2024</option>-->
+<!--        <div class="load_in_tab">-->
+        <div class="load_intab" id="load_intab">
+            <lottie-player class="" id="loadAnim" preload="none"
+                           src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
+                           speed="1" loop autoplay></lottie-player>
+        </div>
+<!--        </div>-->
+        <div class="tab_visible" id="tab_visible">
+            <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за місяць</h2>
+            <div class="graph_picker_conteiner">
+                <select name="year_select" id="year_select" onchange="yearChange();">
+                    <!--                    <option value="1">2023</option>-->
+                    <!--                    <option value="2">2024</option>-->
                 </select>
-                    <select name="month_select" id="month_select" onchange="monthChange();">
-<!--                        <option value="1">Январь</option>-->
-<!--                        <option value="2">Февраль</option>-->
-<!--                        <option value="3">Март</option>-->
-<!--                        <option value="4">Апрель</option>-->
+                <select name="month_select" id="month_select" onchange="monthChange();">
+                    <!--                        <option value="1">Январь</option>-->
+                    <!--                        <option value="2">Февраль</option>-->
+                    <!--                        <option value="3">Март</option>-->
+                    <!--                        <option value="4">Апрель</option>-->
 
-                    </select>
-                    <div class="button_close_conteiner" id ="button_search">
-                        <img class="img-close" src="img/loopa.svg" alt="" onclick="searchGRAF();">
-                    </div>
-<!--                    <i class="fa-brands fa-searchengin" id="search" onclick="searchGRAF();"></i>-->
-<!--                <button id="search" onclick="searchGRAF();">ПОШУК</button>-->
+                </select>
+                <div class="button_close_conteiner" id="button_search">
+                    <img class="img-close" src="img/loopa.svg" alt="" onclick="searchGRAF();">
                 </div>
+                <!--                    <i class="fa-brands fa-searchengin" id="search" onclick="searchGRAF();"></i>-->
+                <!--                <button id="search" onclick="searchGRAF();">ПОШУК</button>-->
+            </div>
 
-        <canvas class="canvas" id="myChart"></canvas>
+            <canvas class="canvas" id="myChart"></canvas>
+        </div>
     </div>
 
     <div id="All" class="tabcontent">
