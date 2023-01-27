@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--    <script src="https://kit.fontawesome.com/307f876eb4.js" crossorigin="anonymous"></script>-->
     <title>Electro</title>
 </head>
 <body>
@@ -37,17 +38,23 @@
     <div id="Month" class="tabcontent">
         <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за місяць</h2>
                 <div class="graph_picker_conteiner">
-                    <select name="year_select" id="year_select">
-                    <option value="1">2023</option>
-                    <option value="2">2024</option>
+                    <select name="year_select" id="year_select" onchange="yearChange();">
+<!--                    <option value="1">2023</option>-->
+<!--                    <option value="2">2024</option>-->
                 </select>
-                    <select name="month_select" id="month_select">
-                        <option value="1">Январь</option>
-                        <option value="2">Февраль</option>
-                        <option value="3">Март</option>
-                        <option value="4">Апрель</option>
+                    <select name="month_select" id="month_select" onchange="monthChange();">
+<!--                        <option value="1">Январь</option>-->
+<!--                        <option value="2">Февраль</option>-->
+<!--                        <option value="3">Март</option>-->
+<!--                        <option value="4">Апрель</option>-->
 
-                    </select></div>
+                    </select>
+                    <div class="button_close_conteiner" id ="button_search">
+                        <img class="img-close" src="img/loopa.svg" alt="" onclick="searchGRAF();">
+                    </div>
+<!--                    <i class="fa-brands fa-searchengin" id="search" onclick="searchGRAF();"></i>-->
+<!--                <button id="search" onclick="searchGRAF();">ПОШУК</button>-->
+                </div>
 
         <canvas class="canvas" id="myChart"></canvas>
     </div>
@@ -70,8 +77,6 @@
 </div>
 
 <div class="container" id="container">
-
-
 
     <div class="middle"  id="middle" >
         <div class="left-middle">

@@ -369,10 +369,16 @@ function close_graf() {
 
 }
 
+
+var month_years = []
+
+// const getMonth_Year
 const getGrafInfo = async (date) => {
+    // month_years = []
     var year = date.getFullYear();
     var month = date.getMonth();
 
+    console.log(year)
     console.log(month)
     try {
 
@@ -381,38 +387,169 @@ const getGrafInfo = async (date) => {
 
         ]);
         const [dateForGraf] = await Promise.all(responsesJSON.map(r => r.json()));
-        console.log(dateForGraf)
-        setChartData(dateForGraf)
 
+        if(month_years.length <= 0) {
+            month_years = dateForGraf['forList']
+            setYear(year, month,  dateForGraf)
+        }
+
+        setChartData(dateForGraf)
 
     } catch (err) {
         throw err;
     }
 };
 
+function setYear(year, month, dateForGraf) {
+    $('#year_select').empty()
+    const jsonObj = month_years
+    for (var key in jsonObj) {
+        for (var k in jsonObj[key]) {
+            $('#year_select').append('<option value="' + k + '">' + k + '</option>');
+        }
+    }
+    document.getElementById('year_select').value = year
+    setMonth(year, month, dateForGraf)
+
+}
+
+function setMonth(year, month, dateForGraf) {
+    console.log(month_years)
+    $('#month_select').empty()
+    // console.log("SELECTED YEAR " + year)
+    const jsonObj = month_years
+
+
+    for (var key in jsonObj) {
+
+
+        for (var k in jsonObj[key]) {
+            console.log("k " + k)
+            if(k === year.toString()) {
+                console.log("selected year is " + k)
+                console.log("jsonObj[key] is " +  jsonObj[key][k])
+                for (const month in jsonObj[key][k]) {
+
+                    console.log("months is " + jsonObj[key][k][month])
+                    $('#month_select').append('<option value="' + jsonObj[key][k][month] + '">' + getMonthUKR(jsonObj[key][k][month]) + '</option>');
+                }
+
+            }
+
+        }
+
+    }
+    try{
+        //document.getElementById('month_select').value = month
+        //getGrafInfo(new Date(year, month))
+        //monthChange()
+    }
+    catch{
+         console.log("NOT MONTH")
+    }
+
+    //setChartData(dateForGraf)
+
+}
+
+function monthChange(){
+
+    var y = document.getElementById("year_select");
+    var year = y.value;
+
+    var m = document.getElementById("month_select");
+    var month = m.value;
+
+
+
+}
+function yearChange(){
+    var y = document.getElementById("year_select");
+    var year = y.value;
+
+    setMonth(year)
+
+}
+
+function searchGRAF(){
+    var y = document.getElementById("year_select");
+    var year = y.value;
+
+    var m = document.getElementById("month_select");
+    var month = m.value;
+
+    getGrafInfo(new Date(year, month))
+    console.log( year + " " + month)
+}
+
+function getMonthUKR(index) {
+    let monthNamesLong = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+        'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
+    return monthNamesLong[index]
+}
+
+
 function setChartData(x) {
     const ctx = document.getElementById('myChart');
-    let outterChart;
+    //let outterChart;
 
-    //console.log("click "+x )
-    if (outterChart) {
-        outterChart.data = getGrafInfo(x);
-    } else {
-        outterChart = new Chart(ctx, {
-                type: 'line',
-                data: x,
-                options: {
-                    pointBackgroundColor: 'rgb(229,14,92)',
-                    // pointHitRadius: '1',
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+    let chartStatus = Chart.getChart("myChart"); // <canvas> id
+    if (chartStatus !== undefined) {
+        chartStatus.destroy();
+    }
+    new Chart(ctx, {
+            type: 'line',
+            data: x,
+            options: {
+                pointBackgroundColor: 'rgb(229,14,92)',
+                // pointHitRadius: '1',
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-        )
-    }
+        }
+    )
+
+    //
+    // console.log(outterChart +  " outer ")
+    // //console.log("click "+x )
+    // if (outterChart) {
+    //     // outterChart.data = getGrafInfo(x);
+    //     outterChart.destroy();
+    //     outterChart = new Chart(ctx, {
+    //             type: 'line',
+    //             data: x,
+    //             options: {
+    //                 pointBackgroundColor: 'rgb(229,14,92)',
+    //                 // pointHitRadius: '1',
+    //                 scales: {
+    //                     y: {
+    //                         beginAtZero: true
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     )
+    //     // outterChart.data = x;
+    // }
+    //     else {
+    //     outterChart = new Chart(ctx, {
+    //             type: 'line',
+    //             data: x,
+    //             options: {
+    //                 pointBackgroundColor: 'rgb(229,14,92)',
+    //                 // pointHitRadius: '1',
+    //                 scales: {
+    //                     y: {
+    //                         beginAtZero: true
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     )
+    // }
 }
 
 document.getElementById("defaultOpen").click();
