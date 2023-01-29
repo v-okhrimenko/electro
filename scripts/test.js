@@ -1,3 +1,6 @@
+
+
+
 function setStatusImage(status, from) {
 
     const imagePower = document.getElementById("power_id");
@@ -62,14 +65,14 @@ function setNowInfo(response, list) {
 }
 
 const getInfo = async (day, from) => {
-
     console.log(day + " from calendar ")
     try {
         day.setHours(0, 0, 0, 0)
         const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day),
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day,)
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day+"_"+userTable),
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day+"_"+userTable,)
         ]);
+        document.getElementById("load").style = 'display: none;';
         getGrafInfo(new Date)
         const [lastInfo, listByDay] = await Promise.all(responsesJSON.map(r => r.json()));
         // console.log(lastInfo, 'lastInfo');
@@ -120,6 +123,8 @@ const getInfo = async (day, from) => {
 
 
     } catch (err) {
+        alert("Інформації за цей день нема. Виберіть іншу дату!")
+        getInfo(new Date(), "now", userTable)
         throw err;
     }
 };
@@ -384,7 +389,7 @@ const getGrafInfo = async (date) => {
     try {
 
         const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_' + year + '*' + month),
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_' + year + '*' + month+"*"+userTable),
 
         ]);
         const [dateForGraf] = await Promise.all(responsesJSON.map(r => r.json()));
@@ -492,6 +497,7 @@ function getMonthUKR(index) {
 
 
 function setChartData(x) {
+    console.log(x)
     document.getElementById("load_intab").style = 'display: none;';
     document.getElementById("tab_visible").style = 'display: block;';
     document.getElementById("myChart").style = 'display: block;';

@@ -1,0 +1,109 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /*background-color: #091534;*/
+    font-family: 'Roboto Condensed', sans-serif;
+    outline: none;
+
+}
+
+/*#testid{*/
+/*    display: none;*/
+/*}*/
+
+
+.txt_enter_login{
+    /*background-color: #3FD13C;*/
+    font-size: 18px;
+}
+.login-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    height: 100%;
+    width:100%;
+    /*background-color: rgb(0, 0, 0);*/
+    background-color: #091534;
+    display: none;
+    animation: fadeEffect 500ms; /* Fading effect takes 1 second */
+}
+
+.main-login-container{
+
+    /*position: center;*/
+    color: #ffffff;
+    position: relative;
+    top: 10%;
+    margin: 0 auto;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-password-conteiner{
+    /*background-color: #414e79;*/
+    /*height: 200px;*/
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 20px 50px;
+}
+.login-password-conteiner button {
+    margin-top: 20px;
+    height: 40px;
+    width: 80%;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #3FD13C;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+.login-password-conteiner button:hover {
+    background-color: #177916;
+    transition: all  200ms ease;
+}
+
+.login-password-conteiner input {
+    height: 40px;
+    margin: 0 0 5px 0;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    border-color: transparent;
+    background-color: #162a6b;
+    font-size: 20px;
+    text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+    .main-login-container{
+        width: 90%;
+    }
+}
+@media only screen and (orientation: portrait)  {
+    .main-login-container{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .main-login-container{
+        width: 90%;
+    }
+}
+

@@ -1,6 +1,7 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 
 }
 *:focus {
@@ -10,9 +11,10 @@
 body{
 
     background-color: #091534;
+    /*background-color: #091534;*/
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
-    max-width: 700px;
+    max-width: 1200px;
     width: 85vw;
     margin: 0 auto;
     height: 100vh;
@@ -28,8 +30,8 @@ body{
     margin-right: -50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    height: 99%;
-    width:50%;
+    height: 100%;
+    width:100%;
     /*background-color: rgb(0, 0, 0);*/
     background-color: #091534;
     display: none;
@@ -45,8 +47,9 @@ body{
 .button_close_conteiner{
     background-color: #040a1c;
     border-radius: 35px;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -62,17 +65,24 @@ body{
     width: 40%; height: auto;
     /*background-color: #3FD13C;*/
 }
+.left-middle .img_exit{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
 
 
 .tab {
     /*padding-left: 20px;*/
     padding-top: 20px;
     overflow: hidden;
-    height: 50px;
+    /*height: 50px;*/
     /*border: 1px solid #ccc;*/
     /*border-bottom: 1px solid #ccc;;*/
     /*background-color: #f1f1f1;*/
     background-color: #040a1c;
+
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -88,6 +98,7 @@ body{
     padding: 14px 16px;
     transition: 0.3s;
     color: #cccccc;
+    font-size: 20px;
 }
 
 /* Change background color of buttons on hover */
@@ -169,11 +180,25 @@ body{
 }
 
 .load{
-    /*position: absolute;*/
-    position: fixed;
-    /*width: 90vw;*/
-    height: 90vh;
+
+    /*position: fixed;*/
+
+    /*height: 90vh;*/
+    /*z-index: 2;*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
+    height: 100%;
+    width:100%;
+    /*background-color: rgb(0, 0, 0);*/
+    background-color: #091534;
+    display: none;
+    animation: fadeEffect 500ms; /* Fading effect takes 1 second */
 
 }
 /*.load_in_tab{*/
@@ -232,7 +257,7 @@ body{
 
 .current{
     width: 80%;
-
+    height: 100%;
     margin: 0 auto;
     text-align: center;
     /*background-color: lime;*/
@@ -244,7 +269,19 @@ body{
 .power_id{
     height: 70%;
 }
+
+
+h2{
+    font-size: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+h3{
+    font-size: 17px;
+}
+
 h2,h3{
+
     text-align: center;
     -moz-user-select: none;
     user-select: none;
@@ -267,14 +304,17 @@ h2,h3{
     cursor: pointer;
 }
 
+
+
 .was-total-text,.absend-total-text {
     border-radius: 50px;
-    height: 40px;
-    width: 40px;
+    width: 50px;
+    height: 50px;
     /*margin: 10px 0;*/
     padding: 5px;
+    margin-top: 20px;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 17px;
     cursor: pointer;
     -moz-user-select: none;
     user-select: none;
@@ -292,15 +332,6 @@ h2,h3{
     opacity: 80%;
 }
 
-
-h2{
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-h3{
-    font-size: 14px;
-}
 
 
 
@@ -325,7 +356,8 @@ h3{
     justify-content: center;
 }
 
-.img{
+img{
+    width: 30px;
     height: 30px;
 }
 .text_message_wrapper{
@@ -346,31 +378,12 @@ h3{
 @media only screen and (orientation: portrait)  {
 
 
-    .graph_conteiner-back{
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        right: auto;
-        bottom: auto;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-        z-index: 2;
-        /*height: 100%;*/
-        /*width:100%;*/
-        /*background-color: rgba(0, 0, 0, 0.38);*/
-        height: 100%;
-        width:100%;
-        /*background-color: rgb(0, 0, 0);*/
-        background-color: #091534;
-
-
+    .bottom{
+        /*width: 100%;*/
+        margin: 0 auto;
+        /*margin-top: 50px;*/
     }
 
-    body{
-        /*max-width: 800px;*/
-        /*width: 90vw;*/
-    }
 
     .container{
         /*background-color: #D24D4D;*/
@@ -405,17 +418,17 @@ h3{
         flex-direction: column;
     }
 
-    .was-total-text{
-        font-size: 20px;
-        width: 50px;
-        height: 50px;
-    }
+    /*.was-total-text{*/
+    /*    font-size: 20px;*/
+    /*    width: 50px;*/
+    /*    height: 50px;*/
+    /*}*/
 
-    .absend-total-text{
-        font-size: 20px;
-        width: 50px;
-        height: 50px;
-    }
+    /*.absend-total-text{*/
+    /*    font-size: 20px;*/
+    /*    width: 50px;*/
+    /*    height: 50px;*/
+    /*}*/
 
     h2{
         font-size: 25px;
@@ -430,16 +443,16 @@ h3{
         padding: 20px;
     }
 
-    img{
-        width: 30px;
-        height: 30px;
-    }
+    /*img{*/
+    /*    width: 30px;*/
+    /*    height: 30px;*/
+    /*}*/
 
-    .button_close_conteiner{
-        width: 50px;
-        height: 50px;
-        margin-bottom: 10px;
-    }
+    /*.button_close_conteiner{*/
+    /*    width: 50px;*/
+    /*    height: 50px;*/
+    /*    margin-bottom: 10px;*/
+    /*}*/
     #button_close_tabs{
         width: 50px;
         height: 50px;
@@ -447,14 +460,14 @@ h3{
     }
 
     /*button_close_tabs*/
-    .bottom {
-        height: 40%;
-        margin-top: 50px;
+    /*.bottom {*/
+    /*    height: 40%;*/
+    /*    margin-top: 50px;*/
 
-        /*background-color: #3FD13C;*/
-        /*height: 50%;*/
-    }
+    /*}*/
     .message{
+        /*background-color: #3FD13C;*/
+        width: 100%;
         height: 45px;
         font-size: 16px;
         align-items: center;
@@ -482,4 +495,58 @@ h3{
         justify-content: space-evenly;
         align-items: center;
     }
+    .login-password-conteiner {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .bottom{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .text_message_wrapper{
+
+    }
+    .message{
+        height: 40px;
+    }
+
+    h2{
+        font-size: 21px;
+    }
+    h3 {
+        font-size: 17px;
+    }
+    .today_date{
+        height: 1px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+
+    .bottom{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    h2{
+        font-size: 21px;
+    }
+    h3 {
+        font-size: 17px;
+    }
+    .message {
+        height: 45px;
+        font-size: 16px;
+        align-items: center;
+        text-align: center;
+        margin: 0 auto 5px 0;
+    }
+    .tab button {
+        font-size: 16px;
+    }
+
+
 }
