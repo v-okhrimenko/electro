@@ -23,9 +23,12 @@ function setDate(date) {
 
 const interIdsNow = [];
 function setNowInfo(response, list) {
-    if (interIdsNow.length > 0) {
-        clearInterval(interIdsNow[0]);
+    for(i in interIdsNow) {
+        clearInterval(interIdsNow[i]);
     }
+    console.log(interIdsNow + "  " + "timer")
+
+
     const time = new Date(response['time']).toLocaleTimeString()
     const status = response['status']
     var lastEventDate = ""
@@ -52,7 +55,8 @@ function setNowInfo(response, list) {
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+        // console.log(days + "д " + hours + "г "
+        //     + minutes + "хв " + seconds + "с ")
         document.getElementById("dur_timer").innerHTML = days + "д " + hours + "г "
             + minutes + "хв " + seconds + "с ";
         if (distance < 0) {
@@ -144,10 +148,10 @@ function showLoadAnimation() {
 const interIds = [];
 
 function setTimeNoTotal(list, lastInfo, from) {
-
-    if (interIds.length > 0) {
-        clearInterval(interIds[0]);
+    for(i in interIds) {
+        clearInterval(interIds[i]);
     }
+    console.log(interIds + "  " + "timer 2")
 
     let no = []
     let yes = []
@@ -197,7 +201,7 @@ function setTimeNoTotal(list, lastInfo, from) {
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 html_.innerText = setZero(hours) + "г " + setZero(minutes) + "xв "
-                //console.log(days + " " + hours + " " + minutes + " " + seconds)
+                console.log(days + " " + hours + " " + minutes + " " + seconds)
 
             }, 1000);
             interIds.push(intervalId)

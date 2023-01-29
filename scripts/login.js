@@ -6,6 +6,7 @@ function logout(){
 
         document.getElementById("login-page").style = 'display: flex;';
 
+
     }
 
     document.cookie = "user="+"0"
