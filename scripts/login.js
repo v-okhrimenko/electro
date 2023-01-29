@@ -4,20 +4,42 @@ function logout(){
 
     if (window.confirm("Ви дійсно бажаете вийти з аккаунту?")) {
 
-        document.getElementById("login-page").style = 'display: flex;';
+        logoutServer()
 
 
     }
-
-    document.cookie = "user="+"0"
 }
+
+
+async function logoutServer(){
+        let userCookie = getCookie("user");
+        try {
+
+            const responsesJSON = await Promise.all([
+                fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=logout_'+ userCookie),
+            ]);
+
+            const [lastInfo] = await Promise.all(responsesJSON.map(r => r.json()));
+            document.cookie = "user=" + "0"
+            document.getElementById("login-page").style = 'display: flex;';
+
+
+        } catch (err) {
+            throw err;
+        }
+}
+
+
+
 async function checkCookieOnServer() {
     let userCookie = getCookie("user");
     console.log(userCookie + " USER COOKIE")
     try {
 
         const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=cookies_' + userCookie),
+            fetch(
+                'https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=cookies_'
+                + userCookie),
         ]);
 
         const [ids] = await Promise.all(responsesJSON.map(r => r.json()));
