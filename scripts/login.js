@@ -91,6 +91,7 @@ const checkLoginPasswordOnServer = async (login, password, cookie) => {
         console.log(id)
         if(id['status']=== true) {
             userTable = id['table']
+            document.cookie = "SameSite=Lax"
             document.cookie = "user="+cookie
             console.log(document.cookie)
 
