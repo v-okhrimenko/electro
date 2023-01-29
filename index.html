@@ -22,13 +22,25 @@
 
 
 <div class="login-page" id="login-page">
+    <div class="login-animation" id="login-animation">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_tijxqgeh.json"
+                       background="transparent"
+                       speed="1"
+                       style="width: 300px;
+                   height: 300px;" loop autoplay></lottie-player>
+    </div>
+
     <div class="main-login-container">
-        <h2 class="txt_enter_login">Увійдіть до аккаунту</h2>
+        <div id="login-error-msg-holder">
+            <p id="login-error-msg">Корисчувача не знайдено!<span id="error-msg-second-line">Вкажіть дійсні логін та пароль!</span></p>
+        </div>
+        <h2 class="txt_enter_login"></h2>
         <div class="login-password-conteiner">
 
-            <input id="login" type="text" placeholder="Login" >
-            <input id="password" type="text" placeholder="Password">
-            <button id="btn_login">LOGIN</button>
+            <input id="login" type="text" placeholder="Логін" >
+            <input id="password" type="text" placeholder="Пароль">
+            <button id="btn_login">Увійти</button>
 
         </div>
     </div>

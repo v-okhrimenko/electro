@@ -1,7 +1,8 @@
 
 let userTable
 function logout(){
-
+    //     Notification.requestPermission()
+    // new Notification("hello")
     if (window.confirm("Ви дійсно бажаете вийти з аккаунту?")) {
 
         logoutServer()
@@ -100,6 +101,7 @@ document.getElementById("btn_login").onclick =  function() {
     }
 }
 
+
 const checkLoginPasswordOnServer = async (login, password, cookie) => {
     console.log(login + " " + password + " " + cookie)
     document.getElementById("load").style = 'display: block;';
@@ -120,14 +122,17 @@ const checkLoginPasswordOnServer = async (login, password, cookie) => {
 
             document.getElementById("testid").style = 'display: block;';
             document.getElementById("login-page").style = 'display: none;';
+            document.getElementById("login-animation").style.visibility = "0"
             // document.getElementById("load").style = 'display: ;';
             getInfo(new Date(), "now", userTable)
 
 
 
         } else {
+
+            document.getElementById("login-error-msg").style.opacity = "1"
             document.getElementById("load").style = 'display: none;';
-            alert("Корисчувача не знайдено! Вкажіть дійсні логін та пароль!")
+            // alert("Корисчувача не знайдено! Вкажіть дійсні логін та пароль!")
 
         }
 
@@ -135,7 +140,24 @@ const checkLoginPasswordOnServer = async (login, password, cookie) => {
         throw err;
     }
 };
+$("#login").on('change keydown paste input', function(){
+    //'display: flex;';
 
+    var x = document.getElementById("login-error-msg").style.opacity
+    console.log(x)
+    if(x === "1"){
+        document.getElementById("login-error-msg").style.opacity = "0"
+    }
+});
+$("#password").on('change keydown paste input', function(){
+    //'display: flex;';
+
+    var x = document.getElementById("login-error-msg").style.opacity
+    console.log(x)
+    if(x === "1"){
+        document.getElementById("login-error-msg").style.opacity = "0"
+    }
+});
 
 function checkLoginPasswordLength() {
     const login = document.getElementById("login").value
