@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/login.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
@@ -13,13 +13,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!--    <script src="https://kit.fontawesome.com/307f876eb4.js" crossorigin="anonymous"></script>-->
+    <!--    <script src="https://kit.fontawesome.com/307f876eb4.js" crossorigin="anonymous"></script>-->
     <title>Electro</title>
 </head>
 <body>
-
-<!--<h1 id="testid" onclick="logout()">GO TO MAIN</h1>-->
-
 
 <div class="login-page" id="login-page">
     <div class="login-animation" id="login-animation">
@@ -33,12 +30,13 @@
 
     <div class="main-login-container">
         <div id="login-error-msg-holder">
-            <p id="login-error-msg">Корисчувача не знайдено!<span id="error-msg-second-line">Вкажіть дійсні логін та пароль!</span></p>
+            <p id="login-error-msg">Корисчувача не знайдено!<span id="error-msg-second-line">Вкажіть дійсні логін та пароль!</span>
+            </p>
         </div>
         <h2 class="txt_enter_login"></h2>
         <div class="login-password-conteiner">
 
-            <input id="login" type="text" placeholder="Логін" >
+            <input id="login" type="text" placeholder="Логін">
             <input id="password" type="text" placeholder="Пароль">
             <button id="btn_login">Увійти</button>
 
@@ -47,131 +45,121 @@
 </div>
 
 
-    <div class="graph_conteiner-back" id="graph_conteiner-back">
+<div class="graph_conteiner-back" id="graph_conteiner-back">
 
-        <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Year')">Рік</button>
-            <button class="tablinks" onclick="openCity(event, 'Month')" id="defaultOpen">Місяць</button>
-            <button class="tablinks" onclick="openCity(event, 'All')">Загалом</button>
-            <div class="button_close_conteiner_line">
-                <div class="button_close_conteiner" id="button_close_tabs">
-                    <img class="img-close" src="img/close.svg" alt="" onClick="close_graf();">
-                </div>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Year')">Рік</button>
+        <button class="tablinks" onclick="openTab(event, 'Month')" id="defaultOpen">Місяць</button>
+        <button class="tablinks" onclick="openTab(event, 'All')">Загалом</button>
+        <div class="button_close_conteiner_line">
+            <div class="button_close_conteiner" id="button_close_tabs">
+                <img class="img-close" src="img/close.svg" alt="" onClick="close_graf();">
             </div>
         </div>
+    </div>
 
-        <!-- Tab content -->
-        <div id="Year" class="tabcontent">
-            <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за рік</h2>
+    <!-- Tab content -->
+    <div id="Year" class="tabcontent">
+        <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за рік</h2>
+    </div>
 
+    <div id="Month" class="tabcontent">
+        <!--        <div class="load_in_tab">-->
+        <div class="load_intab" id="load_intab">
+            <lottie-player class="" id="loadAnim" preload="none"
+                           src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json"
+                           background="transparent"
+                           speed="1" loop autoplay></lottie-player>
         </div>
-
-        <div id="Month" class="tabcontent">
-            <!--        <div class="load_in_tab">-->
-            <div class="load_intab" id="load_intab">
-                <lottie-player class="" id="loadAnim" preload="none"
-                               src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json"
-                               background="transparent"
-                               speed="1" loop autoplay></lottie-player>
-            </div>
-            <!--        </div>-->
-            <div class="tab_visible" id="tab_visible">
-                <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за місяць</h2>
-                <div class="graph_picker_conteiner">
-                    <select name="year_select" id="year_select" onchange="yearChange();">
-                        <!--                    <option value="1">2023</option>-->
-                        <!--                    <option value="2">2024</option>-->
-                    </select>
-                    <select name="month_select" id="month_select" onchange="monthChange();">
-                        <!--                        <option value="1">Январь</option>-->
-                        <!--                        <option value="2">Февраль</option>-->
-                        <!--                        <option value="3">Март</option>-->
-                        <!--                        <option value="4">Апрель</option>-->
-
-                    </select>
-                    <div class="button_close_conteiner" id="button_search">
-                        <img class="img-close" src="img/loopa.svg" alt="" onclick="searchGRAF();">
-                    </div>
-                    <!--                    <i class="fa-brands fa-searchengin" id="search" onclick="searchGRAF();"></i>-->
-                    <!--                <button id="search" onclick="searchGRAF();">ПОШУК</button>-->
+        <!--        </div>-->
+        <div class="tab_visible" id="tab_visible">
+            <h2 class="graph_title">Графік наявності та відсутності eлeктроенергії за місяць</h2>
+            <div class="graph_picker_conteiner">
+                <select name="year_select" id="year_select" onchange="changeYearInGraf();"></select>
+                <select name="month_select" id="month_select"></select>
+                <div class="button_close_conteiner" id="button_search">
+                    <img class="img-close" src="img/loopa.svg" alt="" onclick="searchGRAF();">
                 </div>
 
-                <canvas class="canvas" id="myChart"></canvas>
             </div>
-        </div>
 
-        <div id="All" class="tabcontent">
-            <h2 class="graph_title">Загальна інформація за весь час</h2>
-
+            <canvas class="canvas" id="myChart"></canvas>
         </div>
+    </div>
+
+    <div id="All" class="tabcontent">
+        <h2 class="graph_title">Загальна інформація за весь час</h2>
 
     </div>
+
+</div>
 <!--    <script src="./scripts/login.js"></script>-->
 
-<script src="./scripts/test.js"></script>
-<script src="./scripts/login.js"></script>
-    <script>
-        //getInfo(new Date(), "now")
-    </script>
+<script src="scripts/main.js"></script>
 
-    <div class="load" id="load">
-        <lottie-player class="" id="loadAnim" preload="none"
-                       src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
-                       speed="1" loop autoplay></lottie-player>
-    </div>
+<script>
+    //getInfo(new Date(), "now")
+</script>
 
-    <div class="container" id="container">
+<div class="load" id="load">
+    <lottie-player class="" id="loadAnim" preload="none"
+                   src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
+                   speed="1" loop autoplay></lottie-player>
+</div>
 
-        <div class="middle" id="middle">
-            <div class="left-middle">
-                <div id="testid" class="button_close_conteiner" >
-                    <img class="img_exit" src="img/logout-01.svg" alt="" onclick="logout();">
-                </div>
-                <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
-                <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
+<div class="container" id="container">
+
+    <div class="middle" id="middle">
+        <div class="left-middle">
+            <div id="testid" class="button_close_conteiner">
+                <img class="img_exit" src="img/logout-01.svg" alt="" onclick="logoutConfirmDialog();">
+            </div>
+            <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
+            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
+        </div>
+
+        <div class="current">
+            <lottie-player class="power_id" id="power_id" preload="none"
+                           src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json"
+                           background="transparent"
+                           speed="1" loop autoplay></lottie-player>
+            <div id="datepicker-container">
+                <h1 class="today_date" id="today_date">
+                    <input class="datepicker" type="text" id="datepicker" readonly onchange="dateSelect(event);">
+                </h1>
             </div>
 
-            <div class="current">
-                <lottie-player class="power_id" id="power_id" preload="none"
-                               src="https://assets1.lottiefiles.com/packages/lf20_usmfx6bp.json"
-                               background="transparent"
-                               speed="1" loop autoplay></lottie-player>
-                <div id="datepicker-container">
-                    <h1 class="today_date" id="today_date">
-                        <input class="datepicker" type="text" id="datepicker" readonly onchange="dateSelect(event);">
-                    </h1>
-                </div>
-
-                <h2 id="time-now"></h2>
-                <h3 id="on_off_status_txt"></h3>
-                <h3 id="dur_timer"></h3>
+            <h2 id="time-now"></h2>
+            <h3 id="on_off_status_txt"></h3>
+            <h3 id="dur_timer"></h3>
+        </div>
+        <div class="summary">
+            <div class="button_close_conteiner">
+                <img class="img-close" src="img/calendar-01.svg" alt="" onClick="show_dp();">
             </div>
-            <div class="summary">
-                <div class="button_close_conteiner">
-                    <img class="img-close" src="img/calendar-01.svg" alt="" onClick="show_dp();">
-                </div>
 
-                <div class="button_close_conteiner">
-                    <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
-                </div>
-
+            <div class="button_close_conteiner">
+                <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
             </div>
 
         </div>
 
-        <div class="bottom" id="listview">
-
-            <!--        <div class="message">-->
-            <!--            <img class="img" src="./img/on.svg">-->
-            <!--            <div class="text_message_wrapper">-->
-            <!--                <div class="from"> C 12-00</div>-->
-            <!--                <div class="to">ДО 23-00</div>-->
-            <!--                <div class="total_message">2ч 38М</div>-->
-            <!--            </div>-->
-            <!--        </div>-->
-
-        </div>
     </div>
+
+    <div class="bottom" id="listview">
+
+        <!--        <div class="message">-->
+        <!--            <img class="img" src="./img/on.svg">-->
+        <!--            <div class="text_message_wrapper">-->
+        <!--                <div class="from"> C 12-00</div>-->
+        <!--                <div class="to">ДО 23-00</div>-->
+        <!--                <div class="total_message">2ч 38М</div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+    </div>
+</div>
 
 </body>
+<script src="./scripts/login.js"></script>
 </html>

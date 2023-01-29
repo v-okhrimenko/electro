@@ -1,40 +1,56 @@
 
-let userTable
-function logout(){
-    //     Notification.requestPermission()
-    // new Notification("hello")
-    if (window.confirm("Ви дійсно бажаете вийти з аккаунту?")) {
-
-        logoutServer()
+showAnimation()
+checkCookieOnServer();
 
 
-    }
+function showAnimation() {
+    // console.log("show loading")
+    var x = document.getElementById("load").style = 'display: block;';
+    // console.log(x)
+}
+function hideAnimation(){
+    // console.log("hide loading")
+    document.getElementById("load").style = 'display: none;';
+}
+function showLoginPage() {
+
+    document.getElementById("container").style = 'display: none;';
+    document.getElementById("login-page").style = 'display: flex;';
+
+}
+function showMainPage(){
+    document.getElementById("container").style = 'display: flex;';
+    document.getElementById("login-page").style = 'display: none;';
+}
+function showErrorMessage(){
+    document.getElementById("login-error-msg").style.opacity= "1"
+}
+function hideErrorMessage(){
+    document.getElementById("login-error-msg").style.opacity= "0"
 }
 
 
+let userTable
+function logoutConfirmDialog(){
+    if (window.confirm("Ви дійсно бажаете вийти з аккаунту?")) {
+        logoutServer()
+    }
+}
 async function logoutServer(){
         let userCookie = getCookie("user");
         try {
-
             const responsesJSON = await Promise.all([
                 fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=logout_'+ userCookie),
             ]);
-
             const [lastInfo] = await Promise.all(responsesJSON.map(r => r.json()));
             document.cookie = "user=" + "0"
-            document.getElementById("login-page").style = 'display: flex;';
-
-
+            showLoginPage()
         } catch (err) {
             throw err;
         }
 }
-
-
-
 async function checkCookieOnServer() {
     let userCookie = getCookie("user");
-    console.log(userCookie + " USER COOKIE")
     try {
 
         const responsesJSON = await Promise.all([
@@ -44,18 +60,15 @@ async function checkCookieOnServer() {
         ]);
 
         const [ids] = await Promise.all(responsesJSON.map(r => r.json()));
-        console.log(ids['status'] + " FROM COOKIE")
         if(ids['status'] === false) {
-            // document.getElementById("main-login-container").style = 'display: block;';
-            document.getElementById("login-page").style = 'display: flex;';
-            document.getElementById("load").style = 'display: none;';
-
+            hideAnimation()
+            showLoginPage()
         }
         else {
+            hideAnimation()
+            showMainPage()
             userTable = ids['table']
-            document.getElementById("testid").style = 'display: block;';
-            // document.getElementById("login-page").style = 'display: none;';
-            // getInfo(new Date(), "now", ids['table'])
+
             getInfo(new Date(), "now")
         }
 
@@ -64,9 +77,30 @@ async function checkCookieOnServer() {
     }
 
 }
+const checkLoginPasswordOnServer = async (login, password, cookie) => {
+    try {
+        const responsesJSON = await Promise.all([
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=auth_' + login + "*" + password + "*" + cookie),
+        ]);
 
-checkCookieOnServer();
+        const [id] = await Promise.all(responsesJSON.map(r => r.json()));
+        hideAnimation()
+        if(id['status']=== true) {
+            userTable = id['table']
+            document.cookie = "SameSite=Lax"
+            document.cookie = "user="+cookie
 
+            showMainPage()
+            getInfo(new Date(), "now", userTable)
+
+        } else {
+            showErrorMessage()
+        }
+
+    } catch (err) {
+        throw err;
+    }
+};
 
 function getCookie(cname) {
     let name = cname + "=";
@@ -81,10 +115,8 @@ function getCookie(cname) {
             return c.substring(name.length, c.length);
         }
     }
-
     return "";
 }
-
 
 document.getElementById("btn_login").onclick =  function() {
     if(checkLoginPasswordLength() === false) {
@@ -94,71 +126,30 @@ document.getElementById("btn_login").onclick =  function() {
         const login = document.getElementById("login").value
         const password = document.getElementById("password").value
         const cookie = new Date().getMilliseconds()*34
-        console.log(cookie)
+        showAnimation()
         checkLoginPasswordOnServer(login, password, cookie).then(r => {
 
         })
     }
 }
-
-
-const checkLoginPasswordOnServer = async (login, password, cookie) => {
-    console.log(login + " " + password + " " + cookie)
-    document.getElementById("load").style = 'display: block;';
-    try {
-
-        const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=auth_' + login + "*" + password + "*" + cookie),
-            // fetch('https://script.google.com/macros/s/AKfycbybVQGdCOLKgifcMT0W1n1bd3q8y0jzguAoy0EaS8g/dev?param=auth_' + login + "*" + password),
-        ]);
-
-        const [id] = await Promise.all(responsesJSON.map(r => r.json()));
-        console.log(id)
-        if(id['status']=== true) {
-            userTable = id['table']
-            document.cookie = "SameSite=Lax"
-            document.cookie = "user="+cookie
-            console.log(document.cookie)
-
-            document.getElementById("testid").style = 'display: block;';
-            document.getElementById("login-page").style = 'display: none;';
-            document.getElementById("login-animation").style.visibility = "0"
-            // document.getElementById("load").style = 'display: ;';
-            getInfo(new Date(), "now", userTable)
-
-
-
-        } else {
-
-            document.getElementById("login-error-msg").style.opacity = "1"
-            document.getElementById("load").style = 'display: none;';
-            // alert("Корисчувача не знайдено! Вкажіть дійсні логін та пароль!")
-
-        }
-
-    } catch (err) {
-        throw err;
-    }
-};
 $("#login").on('change keydown paste input', function(){
     //'display: flex;';
 
     var x = document.getElementById("login-error-msg").style.opacity
-    console.log(x)
+    //console.log(x)
     if(x === "1"){
-        document.getElementById("login-error-msg").style.opacity = "0"
+        hideErrorMessage()
     }
 });
 $("#password").on('change keydown paste input', function(){
     //'display: flex;';
 
     var x = document.getElementById("login-error-msg").style.opacity
-    console.log(x)
+    // console.log(x)
     if(x === "1"){
-        document.getElementById("login-error-msg").style.opacity = "0"
+        hideErrorMessage()
     }
 });
-
 function checkLoginPasswordLength() {
     const login = document.getElementById("login").value
     const password = document.getElementById("password").value

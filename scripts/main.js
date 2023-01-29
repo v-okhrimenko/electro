@@ -1,6 +1,3 @@
-
-
-
 function setStatusImage(status, from) {
 
     const imagePower = document.getElementById("power_id");
@@ -10,24 +7,20 @@ function setStatusImage(status, from) {
             : imagePower.load("https://assets1.lottiefiles.com/packages/lf20_0FN9sHNSFX.json")
     } else {
         imagePower.load("https://assets6.lottiefiles.com/packages/lf20_z4cshyhf.json")
-
     }
 }
 
 function setDate(date) {
-
     const options_now = {year: 'numeric', month: 'long', day: 'numeric'};
     document.getElementById("time-now").innerHTML = new Date(date).toLocaleDateString('uk-UA', options_now).replace(/\s*р\./, "");
-
 }
 
 const interIdsNow = [];
+
 function setNowInfo(response, list) {
-    for(i in interIdsNow) {
+    for (i in interIdsNow) {
         clearInterval(interIdsNow[i]);
     }
-    console.log(interIdsNow + "  " + "timer")
-
 
     const time = new Date(response['time']).toLocaleTimeString()
     const status = response['status']
@@ -69,59 +62,55 @@ function setNowInfo(response, list) {
 }
 
 const getInfo = async (day, from) => {
-    console.log(day + " from calendar ")
+    showAnimation()
     try {
         day.setHours(0, 0, 0, 0)
         const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day+"_"+userTable),
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day+"_"+userTable,)
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=last_' + day + "_" + userTable),
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=getByDay_' + day + "_" + userTable,)
         ]);
-        document.getElementById("load").style = 'display: none;';
+
         getGrafInfo(new Date)
         const [lastInfo, listByDay] = await Promise.all(responsesJSON.map(r => r.json()));
-        // console.log(lastInfo, 'lastInfo');
-        // console.log(listByDay, 'listByDay');
-        hideLoadAnimation()
-        // document.getElementById("load").hidden = true
+
+        hideAnimation()
+
         if (from === "now") {
-            console.log("NOW")
+
             setDate(day)
             setStatusImage(lastInfo['status'], "now")
             setNowInfo(lastInfo, listByDay)
             setList(listByDay)
             setTimeNoTotal(listByDay, lastInfo, "now")
+
             document.getElementById("on_off_status_txt").hidden = false
             document.getElementById("dur_timer").hidden = false
+
         } else {
 
             const now_short = new Date();
             now_short.toDateString()
             day.toDateString()
-
-            console.log(now_short + " NOW SHORT")
-            console.log(day + " DAY INFO SHORT")
             setTimeNoTotal(listByDay, lastInfo, "not now")
-            // if (lastInfo['selectedDate'] === now_short) {
-            // if (day === now_short) {
-            if (day.toDateString() === now_short.toDateString()) {
-                console.log("TODAY")
 
-                console.log(new Date())
+            if (day.toDateString() === now_short.toDateString()) {
+
                 setDate(lastInfo['selectedDate'])
                 setList(listByDay)
                 setTimeNoTotal(listByDay, lastInfo, "now")
+
                 document.getElementById("on_off_status_txt").hidden = false
                 document.getElementById("dur_timer").hidden = false
+
                 setStatusImage(lastInfo['status'], "now")
             } else {
-                console.log("NO TODAY")
-                console.log(new Date())
+
                 setDate(lastInfo['selectedDate'])
                 setList(listByDay)
                 setStatusImage(lastInfo['status'], "history")
+
                 document.getElementById("on_off_status_txt").hidden = true
                 document.getElementById("dur_timer").hidden = true
-
             }
         }
 
@@ -133,25 +122,13 @@ const getInfo = async (day, from) => {
     }
 };
 
-function hideLoadAnimation() {
-
-
-    document.getElementById("container").style = 'display: flex;';
-    document.getElementById("load").hidden = true
-}
-
-function showLoadAnimation() {
-    document.getElementById("container").style = 'display: none;';
-    document.getElementById("load").hidden = false
-}
-
 const interIds = [];
 
 function setTimeNoTotal(list, lastInfo, from) {
-    for(i in interIds) {
+    for (i in interIds) {
         clearInterval(interIds[i]);
     }
-    console.log(interIds + "  " + "timer 2")
+    // console.log(interIds + "  " + "timer 2")
 
     let no = []
     let yes = []
@@ -184,7 +161,7 @@ function setTimeNoTotal(list, lastInfo, from) {
             arr = noArr
         }
 
-        console.log(from)
+        //console.log(from)
         if (from === "now") {
 
             var ms = arr[2] * 1000 + arr[1] * 60000 + arr[0] * 3.6e+6
@@ -201,7 +178,7 @@ function setTimeNoTotal(list, lastInfo, from) {
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 html_.innerText = setZero(hours) + "г " + setZero(minutes) + "xв "
-                console.log(days + " " + hours + " " + minutes + " " + seconds)
+                //console.log(days + " " + hours + " " + minutes + " " + seconds)
 
             }, 1000);
             interIds.push(intervalId)
@@ -260,7 +237,7 @@ function setList(list) {
     for (let i = 0; i < list.length; i++) {
         listsItems.append(createLisItem(list[i]))
     }
-    console.log(list);
+    //console.log(list);
 }
 
 function createLisItem(listItem) {
@@ -283,9 +260,7 @@ function createLisItem(listItem) {
     const fromtxt = " з " + start;
     var totxt = " до " + end
     const dur = " тривалість: " + total;
-    // console.log(dur)
     return '<div class="message"><img class="img" src=' + '"' + pth + '"' + '><div class="text_message_wrapper" id="text_message_wrapper" style="background-color:' + color_const + ';"><div class="from" id="fromtxt">' + fromtxt + '</div><div class="to" id="totxt">' + totxt + '</div><div class="total_message" id="dur">' + dur + '</div></div></div>'
-    // return '<div class="message"><img class="img" src=' + '"' + pth + '"' + '><div class="text_message_wrapper" id="text_message_wrapper" style="background-color:color_const;"><div class="from" id="fromtxt">' + fromtxt + '</div><div class="to" id="totxt">' + totxt + '</div><div class="total_message" id="dur">' + dur + '</div></div></div>'
 }
 
 jQuery(function ($) {
@@ -312,16 +287,13 @@ jQuery(function ($) {
 });
 
 $(function () {
-
     $('#datepicker').datepicker({
         dateFormat: 'dd MM yy',
         // minDate: "today",
         maxDate: "+0d",
         setDate: "0",
         autoSize: true
-
     });
-
 });
 
 function show_dp() {
@@ -331,7 +303,6 @@ function show_dp() {
 
 function dateSelect(e) {
     const nor = calendarDateToNormalDate(e.target.value)
-    showLoadAnimation()
     getInfo(new Date(nor), "history")
 }
 
@@ -342,8 +313,8 @@ function calendarDateToNormalDate(dateString) {
 
     const options_now = {year: 'numeric', month: 'long', day: 'numeric'}
     var newCorrectData = new Date(Date.parse(dateArray[0] + " " + month + " " + dateArray[2]))
-    console.log(newCorrectData.toLocaleDateString(undefined, options_now))
-    console.log(newCorrectData + "Corect")
+    // console.log(newCorrectData.toLocaleDateString(undefined, options_now))
+    // console.log(newCorrectData + "Corect")
     return newCorrectData
 }
 
@@ -378,31 +349,24 @@ function close_graf() {
 
 }
 
-
 var month_years = []
-
-// const getMonth_Year
 const getGrafInfo = async (date) => {
-    // month_years = []
     var year = date.getFullYear();
     var month = date.getMonth();
-    // showLoadAnimation()
-    document.getElementById("load_intab").style = 'display: block;';
-    console.log(year)
-    console.log(month)
-    try {
 
+    document.getElementById("load_intab").style = 'display: block;';
+
+    try {
         const responsesJSON = await Promise.all([
-            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_' + year + '*' + month+"*"+userTable),
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=graf_' + year + '*' + month + "*" + userTable),
 
         ]);
         const [dateForGraf] = await Promise.all(responsesJSON.map(r => r.json()));
 
-        if(month_years.length <= 0) {
+        if (month_years.length <= 0) {
             month_years = dateForGraf['forList']
-            setYear(year, month,  dateForGraf)
+            setYearForGraf(year)
         }
-
         setChartData(dateForGraf)
 
     } catch (err) {
@@ -410,7 +374,7 @@ const getGrafInfo = async (date) => {
     }
 };
 
-function setYear(year, month, dateForGraf) {
+function setYearForGraf(year) {
     $('#year_select').empty()
     const jsonObj = month_years
     for (var key in jsonObj) {
@@ -419,69 +383,33 @@ function setYear(year, month, dateForGraf) {
         }
     }
     document.getElementById('year_select').value = year
-    setMonth(year, month, dateForGraf)
+    setMonthForGraf(year)
 
 }
 
-function setMonth(year, month, dateForGraf) {
-    console.log(month_years)
+function setMonthForGraf(year) {
     $('#month_select').empty()
-    // console.log("SELECTED YEAR " + year)
+
     const jsonObj = month_years
-
-
     for (var key in jsonObj) {
-
-
         for (var k in jsonObj[key]) {
-            console.log("k " + k)
-            if(k === year.toString()) {
-                console.log("selected year is " + k)
-                console.log("jsonObj[key] is " +  jsonObj[key][k])
+            if (k === year.toString()) {
                 for (const month in jsonObj[key][k]) {
-
-                    console.log("months is " + jsonObj[key][k][month])
                     $('#month_select').append('<option value="' + jsonObj[key][k][month] + '">' + getMonthUKR(jsonObj[key][k][month]) + '</option>');
                 }
-
             }
-
         }
-
     }
-    try{
-        //document.getElementById('month_select').value = month
-        //getGrafInfo(new Date(year, month))
-        //monthChange()
-    }
-    catch{
-         console.log("NOT MONTH")
-    }
-
-    //setChartData(dateForGraf)
-
 }
 
-function monthChange(){
+function changeYearInGraf() {
+    const y = document.getElementById("year_select");
+    const year = y.value;
 
-    var y = document.getElementById("year_select");
-    var year = y.value;
-
-    var m = document.getElementById("month_select");
-    var month = m.value;
-
-
-
-}
-function yearChange(){
-    var y = document.getElementById("year_select");
-    var year = y.value;
-
-    setMonth(year)
-
+    setMonthForGraf(year)
 }
 
-function searchGRAF(){
+function searchGRAF() {
     var y = document.getElementById("year_select");
     var year = y.value;
 
@@ -489,7 +417,7 @@ function searchGRAF(){
     var month = m.value;
 
     getGrafInfo(new Date(year, month))
-    console.log( year + " " + month)
+    // console.log(year + " " + month)
     document.getElementById("myChart").style = 'display: none;';
 }
 
@@ -499,15 +427,13 @@ function getMonthUKR(index) {
     return monthNamesLong[index]
 }
 
-
 function setChartData(x) {
-    console.log(x)
+
     document.getElementById("load_intab").style = 'display: none;';
     document.getElementById("tab_visible").style = 'display: block;';
     document.getElementById("myChart").style = 'display: block;';
 
     const ctx = document.getElementById('myChart');
-    //let outterChart;
 
     let chartStatus = Chart.getChart("myChart"); // <canvas> id
     if (chartStatus !== undefined) {
@@ -527,65 +453,23 @@ function setChartData(x) {
             }
         }
     )
-
-    //
-    // console.log(outterChart +  " outer ")
-    // //console.log("click "+x )
-    // if (outterChart) {
-    //     // outterChart.data = getGrafInfo(x);
-    //     outterChart.destroy();
-    //     outterChart = new Chart(ctx, {
-    //             type: 'line',
-    //             data: x,
-    //             options: {
-    //                 pointBackgroundColor: 'rgb(229,14,92)',
-    //                 // pointHitRadius: '1',
-    //                 scales: {
-    //                     y: {
-    //                         beginAtZero: true
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     )
-    //     // outterChart.data = x;
-    // }
-    //     else {
-    //     outterChart = new Chart(ctx, {
-    //             type: 'line',
-    //             data: x,
-    //             options: {
-    //                 pointBackgroundColor: 'rgb(229,14,92)',
-    //                 // pointHitRadius: '1',
-    //                 scales: {
-    //                     y: {
-    //                         beginAtZero: true
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     )
-    // }
 }
 
 document.getElementById("defaultOpen").click();
-function openCity(evt, cityName) {
-    // Declare all variables
+
+function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
 
-    // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
 
-    // Get all elements with class="tablinks" and remove the class "active"
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
