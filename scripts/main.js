@@ -61,6 +61,11 @@ function setNowInfo(response, list) {
 
 }
 
+
+function setUserName(userName) {
+    document.getElementById("user-name-letter").innerText = userName.toString().at(0)
+}
+
 const getInfo = async (day, from) => {
     showAnimation()
     try {
@@ -74,14 +79,16 @@ const getInfo = async (day, from) => {
         const [lastInfo, listByDay] = await Promise.all(responsesJSON.map(r => r.json()));
 
         hideAnimation()
+        setUserName(lastInfo['userName'])
+
 
         if (from === "now") {
-
             setDate(day)
             setStatusImage(lastInfo['status'], "now")
             setNowInfo(lastInfo, listByDay)
             setList(listByDay)
             setTimeNoTotal(listByDay, lastInfo, "now")
+
 
             document.getElementById("on_off_status_txt").hidden = false
             document.getElementById("dur_timer").hidden = false

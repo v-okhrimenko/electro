@@ -44,7 +44,6 @@
     </div>
 </div>
 
-
 <div class="graph_conteiner-back" id="graph_conteiner-back">
 
     <div class="tab">
@@ -93,13 +92,8 @@
     </div>
 
 </div>
-<!--    <script src="./scripts/login.js"></script>-->
 
 <script src="scripts/main.js"></script>
-
-<script>
-    //getInfo(new Date(), "now")
-</script>
 
 <div class="load" id="load">
     <lottie-player class="" id="loadAnim" preload="none"
@@ -112,7 +106,8 @@
     <div class="middle" id="middle">
         <div class="left-middle">
             <div id="testid" class="button_close_conteiner">
-                <img class="img_exit" src="img/logout-01.svg" alt="" onclick="logoutConfirmDialog();">
+                <div class="user-name-conteiner"><h2 id="user-name-letter">A</h2></div>
+                <div class="img-logout-conteiner"><img class="img_exit" src="img/logout-01.svg" alt="" onclick="logoutConfirmDialog();"></div>
             </div>
             <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
             <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
@@ -141,9 +136,7 @@
             <div class="button_close_conteiner">
                 <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
             </div>
-
         </div>
-
     </div>
 
     <div class="bottom" id="listview">

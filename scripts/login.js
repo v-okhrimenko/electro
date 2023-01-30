@@ -31,6 +31,7 @@ function hideErrorMessage(){
 
 
 let userTable
+
 function logoutConfirmDialog(){
     if (window.confirm("Ви дійсно бажаете вийти з аккаунту?")) {
         logoutServer()
