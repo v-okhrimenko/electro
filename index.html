@@ -102,6 +102,52 @@
 </div>
 
 <div class="container" id="container">
+    <div class="settings" id="settings">
+        <div class="settings-edit" id="settings-edit">
+            <div class="settings-edit-conteiner"><h2 id="settings-edit-title">Title</h2>
+                <input content="text" class="settings-edit-input" id="settings-edit-input">
+                <div>
+                    <button id="settings-btn-ok">Змінити</button>
+                    <button id="settings-btn-cancel" onclick="closeMenuEdit();">Відміна</button>
+                </div>
+            </div>
+        </div>
+        <div class="settings-head"><h2>Налаштування</h2>
+            <div class="settings-head-button">
+                <div class="button_close_conteiner" onclick="togleSettings();">
+                    <img class="img-close" src="img/close.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="settings-main">
+            <div class="user-settings-container">
+                <h4 class="settings-caption-txt">Логін (імя користувача)</h4>
+                <h3 id="user-name"></h3>
+                <a href="#" class="user-edit" onClick="showMenuEdit('login');">редагувати</a>
+            </div>
+            <div class="user-settings-container">
+                <h4 class="settings-caption-txt">Пароль</h4>
+                <h3 id="user-password"></h3>
+                <a href="#" class="user-edit" onClick="showMenuEdit('password');">редагувати</a>
+            </div>
+            <div class="user-settings-container">
+                <h4 class="settings-caption-txt">IP пристрою</h4>
+                <h3 id="user-ip"></h3>
+                <a href="#" class="user-edit" onClick="showMenuEdit('ip');">редагувати</a>
+            </div>
+            <div class="user-settings-container">
+                <h4 class="settings-caption-txt">Електронна пошта</h4>
+                <h3 id="user-email"></h3>
+                <a href="#" class="user-edit" onClick="showMenuEdit('email');">редагувати</a>
+            </div>
+            <div class="user-settings-container">
+                <h4 class="settings-caption-txt">Видалити аккаунт</h4>
+
+            </div>
+        </div>
+
+    </div>
+
     <div class="side-menu" id="side-menu">
         <div class="user-logo">
             <h2 id="user-name-letter-side"></h2 >
@@ -161,7 +207,7 @@
             </div>
 
             <div class="button_close_conteiner">
-                <img class="img-close" src="img/settings.svg" alt="" onClick="">
+                <img class="img-close" src="img/settings.svg" alt=""  onclick="togleSettings();">
             </div>
 
 
@@ -176,6 +222,7 @@
            <img class="img_menu" id="img_menu" src="img/menu.svg" alt="" >
         </div>
     </div>
+
     <div class="middle" id="middle">
         <div class="left-middle">
 <!--            <div id="testid" class="button_close_conteiner" onclick="logoutConfirmDialog();">-->

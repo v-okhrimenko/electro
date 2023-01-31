@@ -1,7 +1,21 @@
 
+// setFullScreen()
 showAnimation()
 checkCookieOnServer();
 
+
+// document.getElementById("btn").addEventListener('click', setFullScreen)
+// function setFullScreen(){
+//     console.log("FULL SREEN")
+//     if(document.fullscreenElement === null) {
+//         document.documentElement.requestFullscreen()
+//     }
+//     else {
+//         if(document.fullscreenEnabled){
+//             document.exitFullscreen()
+//         }
+//     }
+// }
 
 function showAnimation() {
     // console.log("show loading")

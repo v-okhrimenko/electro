@@ -62,6 +62,7 @@ function setNowInfo(response, list) {
 }
 
 
+let user_name;
 function setUserName(userName) {
 
     document.getElementById("user-name-letter-side").innerText ="Привіт, " + userName.toString() + "!"
@@ -82,6 +83,7 @@ const getInfo = async (day, from) => {
         const [lastInfo, listByDay] = await Promise.all(responsesJSON.map(r => r.json()));
 
         hideAnimation()
+        user_name = lastInfo['userName']
         setUserName(lastInfo['userName'])
         document.getElementById("menu-button").style.opacity = "1"
 
@@ -512,26 +514,121 @@ function openMenuItem(item) {
         close_graf()
         $('#datepicker').datepicker('setDate', new Date());
         getInfo(new Date(), "now")
+        closeSettings()
         curentMenuItemSelected = "now"
     }
     if(item === "history") {
+        closeSettings()
         close_graf()
         show_dp()
         curentMenuItemSelected = "history"
     }
     if(item === "statistic" && curentMenuItemSelected !== item) {
         show_graf()
+        closeSettings()
         curentMenuItemSelected = "statistic"
     }
-    if(item === "logout" && curentMenuItemSelected !== item) {
-        logoutConfirmDialog()
-        curentMenuItemSelected = "logout"
+
+    if(item === "settings" && curentMenuItemSelected !== item) {
+        togleSettings()
+
+        curentMenuItemSelected = "settings"
     }
 
-
-
-
+    if(item === "logout" && curentMenuItemSelected !== item) {
+        logoutConfirmDialog()
+        closeSettings()
+        curentMenuItemSelected = "logout"
+    }
 }
 
 
 
+let user_password
+let user_ip
+let user_email
+
+const getUserInfo = async () => {
+    showAnimation()
+    try {
+        console.log(user_name)
+        const responsesJSON = await Promise.all([
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=userdata_' + user_name),
+        ]);
+
+        const [userInfo] = await Promise.all(responsesJSON.map(r => r.json()));
+        document.getElementById('user-name').innerText = userInfo['username']
+        document.getElementById('user-password').innerText = userInfo['userpassword']
+        document.getElementById('user-ip').innerText = userInfo['userip']
+        document.getElementById('user-email').innerText = userInfo['useremail']
+
+        user_password = userInfo['userpassword']
+        user_ip = userInfo['userip']
+        user_email = userInfo['useremail']
+
+        hideAnimation()
+
+
+
+    } catch (err) {
+
+        throw err;
+    }
+};
+
+function closeSettings(){
+    document.getElementById('settings').style = 'display: none;';
+}
+function togleSettings() {
+
+    var s = document.getElementById('settings').style.display;
+
+    if(s === "" || s === "none") {
+        getUserInfo()
+        document.getElementById('settings').style = 'display: flex;';
+    }
+    else {
+
+        document.getElementById('settings').style = 'display: none;';
+    }
+
+}
+
+function showMenuEdit(from) {
+    document.getElementById('settings-edit').style = 'display: flex;';
+    switch(from) {
+        case 'login':  {
+            document.getElementById('settings-edit-title').innerText = "Змінити логін";
+            document.getElementById('settings-edit-input').value = user_name
+
+            break
+        }
+
+        case 'password': {
+            document.getElementById('settings-edit-title').innerText = "Змінити пароль";
+            document.getElementById('settings-edit-input').value = user_password
+            break
+        }
+
+        case 'ip': {
+            document.getElementById('settings-edit-title').innerText = "Змінити ip адресу пристроя";
+            document.getElementById('settings-edit-input').value = user_ip
+            break
+        }
+        case 'email': {
+            document.getElementById('settings-edit-title').innerText = "Змінити електронну пошту";
+            document.getElementById('settings-edit-input').value = user_email
+            break
+        }
+        default: {
+
+            break
+        }
+            document.getElementById('settings-edit').style = 'display: flex;';
+
+    }
+}
+
+function closeMenuEdit() {
+    document.getElementById('settings-edit').style = 'display: none;';
+}
