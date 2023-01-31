@@ -724,8 +724,8 @@ img{
 
 .settings-edit-conteiner{
     position: fixed;
-    top: 10%;
-    width: 30%;
+    top: 20%;
+    width: 90%;
     /*height: 30%;*/
     background-color: rgb(14, 28, 65);
     border-radius: 20px;
