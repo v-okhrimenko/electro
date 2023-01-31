@@ -63,7 +63,10 @@ function setNowInfo(response, list) {
 
 
 function setUserName(userName) {
-    document.getElementById("user-name-letter").innerText = userName.toString().at(0)
+
+    document.getElementById("user-name-letter-side").innerText ="Привіт, " + userName.toString() + "!"
+    document.getElementById("user-name-letter").innerText ="Привіт, " + userName.toString() + "!"
+    // document.getElementById("user-name-letter").innerText ="Привіт, " + userName.toString().at(0) + "!"
 }
 
 const getInfo = async (day, from) => {
@@ -80,6 +83,7 @@ const getInfo = async (day, from) => {
 
         hideAnimation()
         setUserName(lastInfo['userName'])
+        document.getElementById("menu-button").style.opacity = "1"
 
 
         if (from === "now") {
@@ -256,12 +260,14 @@ function createLisItem(listItem) {
     let color_const;
     let pth = "";
     if (status === false) {
-        pth = "https://i.ibb.co/4pksKzy/poweroff.png";
+        pth = "img/poweroff.png";
+        // pth = "https://i.ibb.co/4pksKzy/poweroff.png";
         color_const = 'rgba(210, 77, 77, 0.65)';
 
     }
     if (status === true) {
-        pth = "https://i.ibb.co/XJ8Mszx/poweron.png";
+        pth = "img/poweron.png";
+        // pth = "https://i.ibb.co/XJ8Mszx/poweron.png";
         color_const = 'rgba(63, 209, 60, 0.48)';
     }
     const fromtxt = " з " + start;
@@ -480,3 +486,52 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+function showMenu() {
+    console.log("click")
+    const img = document.getElementById("img_menu")
+    console.log(img.src)
+
+    const side_menu = document.querySelector('.side-menu');
+    side_menu.classList.toggle('side-menu-active')
+
+    if (side_menu.classList.contains('side-menu-active')) {
+        document.querySelector('.img_menu').src = "img/menu_close.svg";
+    } else {
+        document.querySelector('.img_menu').src = "img/menu.svg";
+    }
+}
+
+let curentMenuItemSelected = "now"
+function openMenuItem(item) {
+    console.log(item)
+    showMenu()
+
+    if(item === "now" && curentMenuItemSelected !== item) {
+
+        close_graf()
+        $('#datepicker').datepicker('setDate', new Date());
+        getInfo(new Date(), "now")
+        curentMenuItemSelected = "now"
+    }
+    if(item === "history") {
+        close_graf()
+        show_dp()
+        curentMenuItemSelected = "history"
+    }
+    if(item === "statistic" && curentMenuItemSelected !== item) {
+        show_graf()
+        curentMenuItemSelected = "statistic"
+    }
+    if(item === "logout" && curentMenuItemSelected !== item) {
+        logoutConfirmDialog()
+        curentMenuItemSelected = "logout"
+    }
+
+
+
+
+}
+
+
+

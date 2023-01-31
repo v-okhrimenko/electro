@@ -102,15 +102,88 @@
 </div>
 
 <div class="container" id="container">
+    <div class="side-menu" id="side-menu">
+        <div class="user-logo">
+            <h2 id="user-name-letter-side"></h2 >
+        </div>
+        <div class="side-content">
+<!--            <div class="user-logo">-->
+<!--                <h2 id="user-name-letter-side"></h2 >-->
+<!--            </div>-->
+            <div class="side-item" onclick="openMenuItem('now');">
+                <div class="button_close_conteiner">
+                    <img class="img-close" src="img/poweron.png" alt="">
+                </div>
+                <div class="side-item-text">Головна</div>
+            </div>
 
+            <div class="side-item" onclick="openMenuItem('history');">
+                <div class="button_close_conteiner">
+                    <img class="img-close" src="img/calendar-01.svg" alt="" onClick="show_dp();">
+                </div>
+                <div class="side-item-text">Історія</div>
+            </div>
+            <div class="side-item" onclick="openMenuItem('statistic');">
+                <div class="button_close_conteiner">
+                    <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
+                </div>
+                <div class="side-item-text">Статистика</div>
+            </div>
+            <div class="side-item" onclick="openMenuItem('settings');">
+                <div>
+                    <img class="img-settings" src="img/settings.svg" alt="" >
+                </div>
+                <div class="side-item-text">Налаштування</div>
+            </div>
+        </div>
+        <div class="exit_accaunt">
+            <div class="side-item" onclick="openMenuItem('logout');">
+                <div class="button_close_conteiner">
+                    <img class="img-close" src="img/logout-01.svg" alt="">
+                </div>
+                <div class="side-item-text">Вийти з аккаунту</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-wrapper">
+        <div class="username">
+            <div class="user-name-conteiner" ><h2 id="user-name-letter">A</h2 ></div>
+        </div>
+
+        <div class="head_menu" id="head-menu">
+            <div class="button_close_conteiner">
+                <img class="img-close" src="img/calendar-01.svg" alt="" onClick="show_dp();">
+            </div>
+
+            <div class="button_close_conteiner">
+                <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
+            </div>
+
+            <div class="button_close_conteiner">
+                <img class="img-close" src="img/settings.svg" alt="" onClick="">
+            </div>
+
+
+            <div id="testid" class="button_close_conteiner_last" onclick="logoutConfirmDialog();">
+                <div class="img-logout-conteiner"><img class="img_exit" src="img/logout-01.svg" alt="" ></div>
+            </div>
+
+
+
+        </div>
+        <div class="menu-button" id="menu-button" onclick="showMenu();">
+           <img class="img_menu" id="img_menu" src="img/menu.svg" alt="" >
+        </div>
+    </div>
     <div class="middle" id="middle">
         <div class="left-middle">
-            <div id="testid" class="button_close_conteiner">
-                <div class="user-name-conteiner"><h2 id="user-name-letter">A</h2></div>
-                <div class="img-logout-conteiner"><img class="img_exit" src="img/logout-01.svg" alt="" onclick="logoutConfirmDialog();"></div>
-            </div>
-            <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
-            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
+<!--            <div id="testid" class="button_close_conteiner" onclick="logoutConfirmDialog();">-->
+<!--                <div class="user-name-conteiner" ><h2 id="user-name-letter">A</h2 ></div>-->
+<!--                <div class="img-logout-conteiner"><img class="img_exit" src="img/logout-01.svg" alt="" ></div>-->
+<!--            </div>-->
+<!--            <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>-->
+<!--            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>-->
         </div>
 
         <div class="current">
@@ -129,13 +202,15 @@
             <h3 id="dur_timer"></h3>
         </div>
         <div class="summary">
-            <div class="button_close_conteiner">
-                <img class="img-close" src="img/calendar-01.svg" alt="" onClick="show_dp();">
-            </div>
+            <h3 class="was-total-text" id="was-id" onclick="showAlert('was-id');" hidden=true></h3>
+            <h3 class="absend-total-text" id="absend-id" onclick="showAlert('absend-id');" hidden=true></h3>
+<!--            <div class="button_close_conteiner">-->
+<!--                <img class="img-close" src="img/calendar-01.svg" alt="" onClick="show_dp();">-->
+<!--            </div>-->
 
-            <div class="button_close_conteiner">
-                <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">
-            </div>
+<!--            <div class="button_close_conteiner">-->
+<!--                <img class="img-close" src="img/graf-01.svg" alt="" onClick="show_graf();">-->
+<!--            </div>-->
         </div>
     </div>
 
