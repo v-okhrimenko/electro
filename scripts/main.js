@@ -415,6 +415,7 @@ function setMonthForGraf(year) {
             }
         }
     }
+
 }
 
 function changeYearInGraf() {
@@ -510,7 +511,7 @@ function openMenuItem(item) {
     showMenu()
 
     if(item === "now" && curentMenuItemSelected !== item) {
-
+        //
         close_graf()
         $('#datepicker').datepicker('setDate', new Date());
         getInfo(new Date(), "now")
@@ -530,8 +531,7 @@ function openMenuItem(item) {
     }
 
     if(item === "settings" && curentMenuItemSelected !== item) {
-        togleSettings()
-
+        getUserInfo()
         curentMenuItemSelected = "settings"
     }
 
@@ -541,8 +541,6 @@ function openMenuItem(item) {
         curentMenuItemSelected = "logout"
     }
 }
-
-
 
 let user_password
 let user_ip
@@ -566,7 +564,11 @@ const getUserInfo = async () => {
         user_ip = userInfo['userip']
         user_email = userInfo['useremail']
 
+        document.getElementById('settings').style = 'display: flex;';
         hideAnimation()
+
+        //openSettings()
+        //togleSettings()
 
 
 
@@ -579,12 +581,19 @@ const getUserInfo = async () => {
 function closeSettings(){
     document.getElementById('settings').style = 'display: none;';
 }
+
+function openSettings() {
+    getUserInfo()
+    //document.getElementById('settings').style = 'display: flex;';
+
+}
+
 function togleSettings() {
 
     var s = document.getElementById('settings').style.display;
 
     if(s === "" || s === "none") {
-        getUserInfo()
+
         document.getElementById('settings').style = 'display: flex;';
     }
     else {
@@ -594,7 +603,10 @@ function togleSettings() {
 
 }
 
+let from_
 function showMenuEdit(from) {
+    from_ = from
+    //document.getElementById('menu-button').style = 'display: none;';
     document.getElementById('settings-edit').style = 'display: flex;';
     switch(from) {
         case 'login':  {
@@ -627,8 +639,129 @@ function showMenuEdit(from) {
             document.getElementById('settings-edit').style = 'display: flex;';
 
     }
+
+
 }
+// document.getElementById("settings-btn-ok").addEventListener('click', doWork(from))
 
 function closeMenuEdit() {
+    //document.getElementById('menu-button').style = 'display: block;';
     document.getElementById('settings-edit').style = 'display: none;';
+}
+
+function doWork() {
+    var userData = document.getElementById('settings-edit-input').value
+    console.log(from_)
+    switch(from_) {
+        case 'login':  {
+            changeLogin(userData)
+            break
+        }
+
+        case 'password': {
+            //changePassword()
+            break
+        }
+
+        case 'ip': {
+            changeIp()
+            break
+        }
+        case 'email': {
+            changeEmail()
+            break
+        }
+        default: {
+
+            break
+        }
+
+    }
+}
+
+const changeLogin = async (newLogin) => {
+    showAnimation()
+
+        let data = {
+            login: user_name.toString(), newLogin: newLogin.toString()
+        };
+
+        const url = 'https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=changeusername'
+
+
+        try {
+            const response = await fetch(url, {
+                redirect: "follow",
+                method: 'POST',
+                // mode: 'no-cors',
+                body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8",
+                },
+            });
+            const json = await response.json()
+            console.log('Успех:', json['status']);
+
+            if(json['status'] === true) {
+                user_name = newLogin
+                document.getElementById('user-name').innerText = newLogin
+                document.getElementById('user-name-letter-side').innerText = "Привіт, " + newLogin + "!"
+                // alert(json['action'])
+                ShowAlertMessage("Вітаємо!", json['action'] )
+                hideAnimation()
+                closeMenuEdit()
+            }
+            else {
+                //alert(json['action'])
+                ShowAlertMessage("Нажаль....", json['action'] )
+                hideAnimation()
+                closeMenuEdit()
+            }
+
+        } catch (error) {
+            console.error('Ошибка:', error);
+            hideAnimation()
+        }
+
+
+
+};
+const changePassword = async () => {
+    showAnimation()
+    try {
+
+        const responsesJSON = await Promise.all([
+            fetch('https://script.google.com/macros/s/AKfycbwHSI0xmeZXgFHW6fhKBuPtBFFW142ovMp6BdIXPd19FoK3bw2a1PDMLBJXATew2W-D/exec?param=userdata_' + user_name),
+        ]);
+
+        const [userInfo] = await Promise.all(responsesJSON.map(r => r.json()));
+
+        //
+        // document.getElementById('user-name').innerText = userInfo['username']
+        // document.getElementById('user-password').innerText = userInfo['userpassword']
+        // document.getElementById('user-ip').innerText = userInfo['userip']
+        // document.getElementById('user-email').innerText = userInfo['useremail']
+        //
+        // user_password = userInfo['userpassword']
+        // user_ip = userInfo['userip']
+        // user_email = userInfo['useremail']
+
+        hideAnimation()
+
+    } catch (err) {
+
+        throw err;
+    }
+};
+
+function closeAlert(){
+
+    document.getElementById("alert-message-container").style = 'display: none;';
+}
+
+function ShowAlertMessage(title, text) {
+    document.getElementById("alert-message-container").style = 'display: flex;';
+    document.getElementById("alertTitle").innerText = title
+    document.getElementById("alertMessage").innerText = text
+
 }

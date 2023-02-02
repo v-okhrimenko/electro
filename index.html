@@ -18,6 +18,14 @@
 </head>
 <body>
 
+<div class="alert-message-container" id="alert-message-container">
+    <div class="alert">
+        <h2 id="alertTitle">Title</h2>
+        <p id ="alertMessage">Some message text</p>
+        <button onclick="closeAlert();" >OK</button>
+    </div>
+</div>
+
 <div class="login-page" id="login-page">
     <div class="login-animation" id="login-animation">
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -107,14 +115,14 @@
             <div class="settings-edit-conteiner"><h2 id="settings-edit-title">Title</h2>
                 <input content="text" class="settings-edit-input" id="settings-edit-input">
                 <div>
-                    <button id="settings-btn-ok">Змінити</button>
+                    <button id="settings-btn-ok" onclick="doWork();">Змінити</button>
                     <button id="settings-btn-cancel" onclick="closeMenuEdit();">Відміна</button>
                 </div>
             </div>
         </div>
         <div class="settings-head"><h2>Налаштування</h2>
             <div class="settings-head-button">
-                <div class="button_close_conteiner" onclick="togleSettings();">
+                <div class="button_close_conteiner" onclick="closeSettings();">
                     <img class="img-close" src="img/close.svg" alt="">
                 </div>
             </div>
@@ -122,23 +130,39 @@
         <div class="settings-main">
             <div class="user-settings-container">
                 <h4 class="settings-caption-txt">Логін (імя користувача)</h4>
-                <h3 id="user-name"></h3>
-                <a href="#" class="user-edit" onClick="showMenuEdit('login');">редагувати</a>
+                <div><h3 id="user-name"></h3>
+                    <div class="img"  onClick="showMenuEdit('login');">
+                        <img class="img-close" src="img/edit-01.svg" alt="">
+                    </div>
+<!--                    <a href="#" class="user-edit">редагувати</a>-->
+                </div>
             </div>
             <div class="user-settings-container">
                 <h4 class="settings-caption-txt">Пароль</h4>
-                <h3 id="user-password"></h3>
-                <a href="#" class="user-edit" onClick="showMenuEdit('password');">редагувати</a>
+                <div><h3 id="user-password"></h3>
+                    <div class="img" onClick="showMenuEdit('password');">
+                        <img class="img-close"  src="img/edit-01.svg" alt="">
+                    </div>
+<!--                    <a href="#" class="user-edit" >редагувати</a>-->
+                </div>
             </div>
             <div class="user-settings-container">
                 <h4 class="settings-caption-txt">IP пристрою</h4>
-                <h3 id="user-ip"></h3>
-                <a href="#" class="user-edit" onClick="showMenuEdit('ip');">редагувати</a>
+                <div><h3 id="user-ip"></h3>
+                    <div class="img" onClick="showMenuEdit('ip');">
+                        <img class="img-close"    src="img/edit-01.svg" alt="">
+                    </div>
+<!--                    <a href="#" class="user-edit" >редагувати</a>-->
+                </div>
             </div>
             <div class="user-settings-container">
                 <h4 class="settings-caption-txt">Електронна пошта</h4>
-                <h3 id="user-email"></h3>
-                <a href="#" class="user-edit" onClick="showMenuEdit('email');">редагувати</a>
+                <div><h3 id="user-email"></h3>
+                    <div class="img" onClick="showMenuEdit('email');">
+                        <img class="img-close"   src="img/edit-01.svg" alt="">
+                    </div>
+<!--                    <a href="#" class="user-edit" >редагувати</a>-->
+                </div>
             </div>
             <div class="user-settings-container">
                 <h4 class="settings-caption-txt">Видалити аккаунт</h4>
@@ -176,6 +200,8 @@
                 <div class="side-item-text">Статистика</div>
             </div>
             <div class="side-item" onclick="openMenuItem('settings');">
+<!--            <div class="side-item" onclick="openSettings();">-->
+<!--            <div class="side-item" onclick="openMenuItem('settings');">-->
                 <div>
                     <img class="img-settings" src="img/settings.svg" alt="" >
                 </div>
@@ -207,7 +233,10 @@
             </div>
 
             <div class="button_close_conteiner">
-                <img class="img-close" src="img/settings.svg" alt=""  onclick="togleSettings();">
+                <img class="img-close" src="img/settings.svg" alt=""  onclick="openSettings();">
+<!--                <img class="img-close" src="img/settings.svg" alt=""  onclick="openMenuItem('settings');">-->
+<!--                <img class="img-close" src="img/settings.svg" alt=""  onclick="togleSettings();">-->
+
             </div>
 
 
